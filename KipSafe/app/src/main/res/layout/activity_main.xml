@@ -10,8 +10,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.b18.kipsafe.MainActivity">
 
-    <TextView
+    <ImageButton
+        android:layout_centerInParent="true"
+        android:id="@+id/kipButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:padding="4dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/kip_button"
+        android:background="#00000000"
+        android:onClick="hitKip"
+        android:contentDescription="@string/kipbutton" />
+
 </RelativeLayout>

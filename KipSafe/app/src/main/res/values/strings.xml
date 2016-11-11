@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">KipSafe</string>
+    <string name="kipbutton">Kip button</string>
+    <string name="notif">Vergeet de kippen niet!</string>
 </resources>
