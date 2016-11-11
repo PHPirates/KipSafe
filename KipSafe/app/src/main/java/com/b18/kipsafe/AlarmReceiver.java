@@ -19,7 +19,7 @@ public class AlarmReceiver extends BroadcastReceiver
                 .setContentTitle(context.getString(R.string.notif)) //required
                 .setContentText("Tok tok!") //required
                 .setSmallIcon(R.drawable.egg2) //required
-                .setVibrate(new long[] {0,1000,1000,1000})
+                .setVibrate(new long[] {0,200,100,50,50,50,50,1000,1000})
                 .build();
 
         NotificationManager nm = (NotificationManager) context
