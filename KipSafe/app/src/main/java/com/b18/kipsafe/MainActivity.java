@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,10 +33,13 @@ import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
+    boolean open;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     /**
@@ -42,9 +47,18 @@ public class MainActivity extends AppCompatActivity {
      * @param v kip button
      */
     public void hitKip(View v) {
-        GetSunSetTask getSunSetTask = new GetSunSetTask();
-        getSunSetTask.execute();
-        startHandler(getSunSetTask);
+        Log.e("hitKip","kip hit");
+        open = !open;
+        v.setSelected(open);
+        if(open) {
+            Log.e("kip", "open");
+            GetSunSetTask getSunSetTask = new GetSunSetTask();
+            getSunSetTask.execute();
+            startHandler(getSunSetTask);
+        } else {
+            Log.e("kip", "dicht");
+        }
+
     }
 
     void scheduleAlarm(Calendar timeCal) {
@@ -76,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 if (getSunSetTask.getStatus() == AsyncTask.Status.RUNNING) {
                     getSunSetTask.cancel(true);
-                    Toast.makeText(getBaseContext(),"The Arduino could not be reached, request terminated.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(),"The sun could not be reached, therefore we couldn't ask him for his sleepy time.",Toast.LENGTH_SHORT).show();
                 }
 
             }

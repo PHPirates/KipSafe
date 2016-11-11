@@ -18,8 +18,8 @@
         android:padding="4dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
+        android:background="@color/transparent"
         android:src="@drawable/kip_button"
-        android:background="#00000000"
         android:onClick="hitKip"
         android:contentDescription="@string/kipbutton" />
 
