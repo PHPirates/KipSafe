@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton kipButton;
     String time;
 
+    BaseClass baseClass;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,13 +73,15 @@ public class MainActivity extends AppCompatActivity {
         Log.e("firebase", "subscribed to Kip.");
 
         firebase = new Firebase("https://kipsafe-f5610.firebaseio.com/");
+        baseClass = new BaseClass(firebase,open);
 
         firebase.child(KEY_OPEN).addValueEventListener(new com.firebase.client.ValueEventListener() {
             @Override
             public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
                 Log.e("database change", dataSnapshot.getValue().toString());
                 open = (boolean) dataSnapshot.getValue();
-                kipButton.setSelected((boolean) dataSnapshot.getValue());
+                kipButton.setSelected(open);
+                baseClass.changeOpen(open);
             }
 
             @Override
@@ -93,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void hitKip(View v) {
         open = !open;
-        firebase.child(KEY_OPEN).setValue(open);
+        baseClass.changeOpen(open);
         v.setSelected(open);
         if(open) {
             Log.e("kip", "open");
@@ -147,7 +152,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected String doInBackground(Void... urls) {
-            time = "2016-11-12T16:56:12+00:00";
 
             String postMessage="{\n" +
                     "\t\"to\": \"/topics/Kip\",\n" +
