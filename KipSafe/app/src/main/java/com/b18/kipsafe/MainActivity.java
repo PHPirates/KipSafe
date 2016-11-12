@@ -27,10 +27,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private Firebase firebase;
     String KEY_OPEN = "open";
     ImageButton kipButton;
+    String time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,22 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void scheduleAlarm(Calendar timeCal) {
-        //schedule alarm
-//        timeCal.set(Calendar.HOUR_OF_DAY,13);
-//        timeCal.set(Calendar.MINUTE,9);
-        //give notification an hour before sunset
-        timeCal.set(Calendar.HOUR_OF_DAY,timeCal.get(Calendar.HOUR_OF_DAY)-1);
-        //toast
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
-        Toast.makeText(getBaseContext(),"Alarm set for "+sdf.format(timeCal.getTime()),Toast.LENGTH_SHORT).show();
-        //time received is in UTC
-        Intent intentAlarm = new Intent(this,AlarmReceiver.class);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, timeCal.getTimeInMillis(),
-                PendingIntent.getBroadcast(this,1,intentAlarm,PendingIntent.FLAG_UPDATE_CURRENT));
-    }
-
     /**
      * Starts handler to handle a dataSender and kill it after 2 seconds
      * @param getSunSetTask getSunSetTask object
@@ -137,51 +126,78 @@ public class MainActivity extends AppCompatActivity {
         }, 2000);
     }
 
-    /**
-     * convert iso 8601 string to calendar object
-     *
-     * @param isoTime time in UTC
-     * @return calendar object
-     */
-    Calendar convertIsoToCal(String isoTime) {
-        Date date = convertIsoToDate(isoTime);
-        Calendar c = new GregorianCalendar(); //defaults to good timezone
-        try { // in case date == null
-            c.setTime(date);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return c;
-    }
-
-    /**
-     * convert a time string in ns format to a date object
-     *
-     * @param isoTime time in ns format
-     * @return date object
-     */
-    private Date convertIsoToDate(String isoTime) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss",Locale.getDefault());
-            sdf.setTimeZone(TimeZone.getTimeZone("UTC")); //time is in UTC
-            return sdf.parse(isoTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null; //default
-    }
-
     void parseResult(String response) {
         try {
             //parse json
             JSONObject responseObject = new JSONObject(response);
             JSONObject results = responseObject.getJSONObject("results");
-            String sunset = results.getString("sunset");
-            scheduleAlarm(convertIsoToCal(sunset));
+            time = results.getString("sunset");
+            Log.e("sunset", time); // TODO use sunset in http-request to send data to all devices
+            SendJson sendJson = new SendJson();
+            sendJson.execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+    private class SendJson extends AsyncTask<Void, Void, String> {
+
+        protected void onPreExecute() {
+
+        }
+
+        protected String doInBackground(Void... urls) {
+            time = "2016-11-12T16:56:12+00:00";
+
+            String postMessage="{\n" +
+                    "\t\"to\": \"/topics/Kip\",\n" +
+                    "\"data\": {\n" +
+                            "\"time\":\"" + time +
+                        "\"}" +
+                    "}";
+
+            String response = "";
+
+            try {
+                URL url = new URL("https://fcm.googleapis.com/fcm/send");
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Authorization", "key=AIzaSyBmJGCute8urbujBRypnZb1WhE2gqFEyEQ");
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setDoInput(true);
+                urlConnection.connect();
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("to", "/topics/Kip");
+                jsonObject.put("time", time);
+
+                DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
+                wr.writeBytes(postMessage);
+                Log.e("message", postMessage);
+                InputStream in = urlConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(in));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+                bufferedReader.close();
+                response = stringBuilder.toString();
+                wr.flush();
+                wr.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            return response;
+        }
+
+        protected void onPostExecute(String response) {
+            Log.e("response", response);
+        }
+    }
+
 
     private class GetSunSetTask extends AsyncTask<Void, Void, String> {
         protected String doInBackground(Void... urls) {
