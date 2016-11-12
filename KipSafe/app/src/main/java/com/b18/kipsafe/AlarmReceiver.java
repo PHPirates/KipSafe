@@ -6,9 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
 import android.widget.Toast;
-
 import com.firebase.client.Firebase;
 
 public class AlarmReceiver extends BroadcastReceiver {

@@ -1,60 +1,31 @@
 package com.b18.kipsafe;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import android.widget.ToggleButton;
-
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
     boolean open;
-    private Firebase firebase;
     String KEY_OPEN = "open";
     ImageButton kipButton;
     String time;
-
     BaseClass baseClass;
 
 
@@ -64,21 +35,16 @@ public class MainActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
 
-//        String token = FirebaseInstanceId.getInstance().getToken();
-//        Log.e("token", token);
-
         kipButton = (ImageButton)findViewById(R.id.kipButton);
 
         FirebaseMessaging.getInstance().subscribeToTopic("Kip");
-        Log.e("firebase", "subscribed to Kip.");
 
-        firebase = new Firebase("https://kipsafe-f5610.firebaseio.com/");
+        Firebase firebase = new Firebase("https://kipsafe-f5610.firebaseio.com/");
         baseClass = new BaseClass(firebase,open);
 
         firebase.child(KEY_OPEN).addValueEventListener(new com.firebase.client.ValueEventListener() {
             @Override
             public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
-                Log.e("database change", dataSnapshot.getValue().toString());
                 open = (boolean) dataSnapshot.getValue();
                 kipButton.setSelected(open);
                 baseClass.changeOpen(open);
@@ -101,12 +67,9 @@ public class MainActivity extends AppCompatActivity {
         baseClass.changeOpen(open);
         v.setSelected(open);
         if(open) {
-            Log.e("kip", "open");
             GetSunSetTask getSunSetTask = new GetSunSetTask();
             getSunSetTask.execute();
             startHandler(getSunSetTask);
-        } else {
-            Log.e("kip", "dicht");
         }
 
     }
@@ -137,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
             JSONObject responseObject = new JSONObject(response);
             JSONObject results = responseObject.getJSONObject("results");
             time = results.getString("sunset");
-            Log.e("sunset", time); // TODO use sunset in http-request to send data to all devices
             SendJson sendJson = new SendJson();
             sendJson.execute();
         } catch (JSONException e) {
@@ -171,13 +133,8 @@ public class MainActivity extends AppCompatActivity {
                 urlConnection.setDoInput(true);
                 urlConnection.connect();
 
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("to", "/topics/Kip");
-                jsonObject.put("time", time);
-
                 DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
                 wr.writeBytes(postMessage);
-                Log.e("message", postMessage);
                 InputStream in = urlConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader(in));
@@ -198,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(String response) {
-            Log.e("response", response);
         }
     }
 
