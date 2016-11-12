@@ -27,7 +27,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         //create notification
         Notification notif = new NotificationCompat.Builder(context) //build the notification
                 .setContentTitle(context.getString(R.string.notif)) //required
-                .setContentText("test") //required
+                .setContentText("tok tok!") //required
                 .setSmallIcon(R.drawable.egg) //required
                 .setVibrate(new long[] {0,200,100,50,50,50,50,1000,1000})
                 .build();
