@@ -11,9 +11,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,11 +46,39 @@ import java.util.TimeZone;
 public class MainActivity extends AppCompatActivity {
 
     boolean open;
+    private Firebase firebase;
+    String KEY_OPEN = "open";
+    ImageButton kipButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
+
+//        String token = FirebaseInstanceId.getInstance().getToken();
+//        Log.e("token", token);
+
+        kipButton = (ImageButton)findViewById(R.id.kipButton);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("Kip");
+        Log.e("firebase", "subscribed to Kip.");
+
+        firebase = new Firebase("https://kipsafe-f5610.firebaseio.com/");
+
+        firebase.child(KEY_OPEN).addValueEventListener(new com.firebase.client.ValueEventListener() {
+            @Override
+            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
+                Log.e("database change", dataSnapshot.getValue().toString());
+                open = (boolean) dataSnapshot.getValue();
+                kipButton.setSelected((boolean) dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
 
     }
 
@@ -47,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
      * @param v kip button
      */
     public void hitKip(View v) {
-        Log.e("hitKip","kip hit");
         open = !open;
+        firebase.child(KEY_OPEN).setValue(open);
         v.setSelected(open);
         if(open) {
             Log.e("kip", "open");
