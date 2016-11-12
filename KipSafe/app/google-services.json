@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "385307325966",
-    "firebase_url": "https://kipsafe-f5610.firebaseio.com",
-    "project_id": "kipsafe-f5610",
-    "storage_bucket": "kipsafe-f5610.appspot.com"
+    "project_number": "557358237170",
+    "firebase_url": "https://kipsafe2.firebaseio.com",
+    "project_id": "kipsafe2",
+    "storage_bucket": "kipsafe2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:385307325966:android:8f2d4d2888d7892c",
+        "mobilesdk_app_id": "1:557358237170:android:8f2d4d2888d7892c",
         "android_client_info": {
           "package_name": "com.b18.kipsafe"
         }
       },
       "oauth_client": [
         {
-          "client_id": "385307325966-gie9u932b0507e297bkaefq98086dium.apps.googleusercontent.com",
+          "client_id": "557358237170-tvj9ucilbpfqqcf3jreqnrnjce5j6abd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC_kqFKP7JkxOkzuCs2T5jzxHGPcdWg7DY"
+          "current_key": "AIzaSyA6tqYSGHFqu-aN4WBbrDfx9Gv-3VsU8tc"
         }
       ],
       "services": {
