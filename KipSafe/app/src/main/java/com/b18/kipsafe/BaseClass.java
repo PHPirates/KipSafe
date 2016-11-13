@@ -12,6 +12,10 @@ public class BaseClass {
         this.open = open;
     }
 
+    /**
+     * update egg on all phones via firebase
+     * @param open boolean egg-state
+     */
     public void changeOpen(boolean open) {
         firebase.child("open").setValue(open);
     }

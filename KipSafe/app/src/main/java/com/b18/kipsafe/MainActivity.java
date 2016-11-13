@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
 
+        //check for updates (using library)
         WVersionManager versionManager = new WVersionManager(this);
         versionManager.setVersionContentUrl("https://github.com/PHPirates/KipSafe/raw/master/version.json");
         versionManager.setUpdateUrl("https://github.com/PHPirates/KipSafe/raw/master/Kipsafe/app/app-release.apk");
@@ -51,23 +52,24 @@ public class MainActivity extends AppCompatActivity {
 
         kipButton = (ImageButton)findViewById(R.id.kipButton);
 
+        //setup firebase
         FirebaseMessaging.getInstance().subscribeToTopic("Kip");
-
         Firebase firebase = new Firebase("https://kipsafe-f5610.firebaseio.com/");
         baseClass = new BaseClass(firebase,open);
 
+        /**
+         * onDataChange reacts to a difference between local and remote database (open/closed)
+         */
         firebase.child(KEY_OPEN).addValueEventListener(new com.firebase.client.ValueEventListener() {
             @Override
             public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
+                //if there is a difference, use data from database
                 open = (boolean) dataSnapshot.getValue();
-                kipButton.setSelected(open);
-                baseClass.changeOpen(open);
+                kipButton.setSelected(open); //update egg picture
             }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
+            public void onCancelled(FirebaseError firebaseError) {}
         });
 
     }
@@ -77,15 +79,15 @@ public class MainActivity extends AppCompatActivity {
      * @param v kip button
      */
     public void hitKip(View v) {
+        //update global state
         open = !open;
+        //update egg on all phones
         baseClass.changeOpen(open);
-        v.setSelected(open);
         if(open) {
             GetSunSetTask getSunSetTask = new GetSunSetTask();
             getSunSetTask.execute();
             startHandler(getSunSetTask);
         }
-
     }
 
     /**
@@ -94,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void startHandler(final GetSunSetTask getSunSetTask) {
         //start a new handler that will cancel the AsyncTask after x seconds
-        //in case the Arduino can't be reached
+        //in case the sunset can't be reached
         Handler handler = new Handler(Looper.getMainLooper()); //make sure to start from UI thread
         handler.postDelayed(new Runnable() {
             @Override
@@ -119,8 +121,9 @@ public class MainActivity extends AppCompatActivity {
             timeCal.set(Calendar.HOUR_OF_DAY,timeCal.get(Calendar.HOUR_OF_DAY)-1);
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
             Toast.makeText(getBaseContext(),"Alarm set for "+sdf.format(timeCal.getTime()),Toast.LENGTH_SHORT).show();
-            SendJson sendJson = new SendJson();
-            sendJson.execute();
+            //dispatch alarm with right time to all phones
+            SendAlarmToAllPhones sendAlarmToAllPhones = new SendAlarmToAllPhones();
+            sendAlarmToAllPhones.execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -160,7 +163,10 @@ public class MainActivity extends AppCompatActivity {
         return null; //default
     }
 
-    private class SendJson extends AsyncTask<Void, Void, String> {
+    /**
+     * Sends via firebase a message to all phones with the time at which the alarm should fire
+     */
+    private class SendAlarmToAllPhones extends AsyncTask<Void, Void, String> {
 
         protected void onPreExecute() {
 

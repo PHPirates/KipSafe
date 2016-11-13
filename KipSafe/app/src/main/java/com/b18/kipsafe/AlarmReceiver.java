@@ -11,15 +11,16 @@ import com.firebase.client.Firebase;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    BaseClass baseClass;
+//    BaseClass baseClass;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Firebase.setAndroidContext(context);
-        Firebase firebase = new Firebase("https://kipsafe-f5610.firebaseio.com/");
-        baseClass = new BaseClass(firebase,false);
-        baseClass.changeOpen(false);
+        //shut egg immediately after notification
+//        Firebase.setAndroidContext(context);
+//        Firebase firebase = new Firebase("https://kipsafe-f5610.firebaseio.com/");
+//        baseClass = new BaseClass(firebase,false);
+//        baseClass.changeOpen(false);
 
         Toast.makeText(context,"Tok tok!",Toast.LENGTH_SHORT).show();
         //create notification
