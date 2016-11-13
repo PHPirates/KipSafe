@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         WVersionManager versionManager = new WVersionManager(this);
-        versionManager.setVersionContentUrl("https://github.com/PHPirates/SolArduino/raw/master/solappduino/version.json");
-        versionManager.setUpdateUrl("https://github.com/PHPirates/SolArduino/raw/master/solappduino/solarduino/app/app-release.apk");
+        versionManager.setVersionContentUrl("https://github.com/PHPirates/KipSafe/raw/master/version.json");
+        versionManager.setUpdateUrl("https://github.com/PHPirates/KipSafe/raw/master/Kipsafe/app/app-release.apk");
         versionManager.checkVersion();
 
         kipButton = (ImageButton)findViewById(R.id.kipButton);
