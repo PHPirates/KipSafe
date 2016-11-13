@@ -19,6 +19,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,11 +107,50 @@ public class MainActivity extends AppCompatActivity {
             JSONObject responseObject = new JSONObject(response);
             JSONObject results = responseObject.getJSONObject("results");
             time = results.getString("sunset");
+            Calendar timeCal = convertIsoToCal(time);
+            //give notification an hour before sunset
+            timeCal.set(Calendar.HOUR_OF_DAY,timeCal.get(Calendar.HOUR_OF_DAY)-1);
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
+            Toast.makeText(getBaseContext(),"Alarm set for "+sdf.format(timeCal.getTime()),Toast.LENGTH_SHORT).show();
             SendJson sendJson = new SendJson();
             sendJson.execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * convert iso 8601 string to calendar object
+     *
+     * @param isoTime time in UTC
+     * @return calendar object
+     */
+    Calendar convertIsoToCal(String isoTime) {
+        Date date = convertIsoToDate(isoTime);
+        Calendar c = new GregorianCalendar(); //defaults to good timezone
+        try { // in case date == null
+            c.setTime(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return c;
+    }
+
+    /**
+     * convert a time string in ns format to a date object
+     *
+     * @param isoTime time in ns format
+     * @return date object
+     */
+    private Date convertIsoToDate(String isoTime) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC")); //time is in UTC
+            return sdf.parse(isoTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null; //default
     }
 
     private class SendJson extends AsyncTask<Void, Void, String> {
