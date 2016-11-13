@@ -1,6 +1,6 @@
 # KipSafe
 
-[Download latest release (v1.1)](https://github.com/PHPirates/KipSafe/raw/master/Kipsafe/app/app-release.apk)
+[Download latest release (v1.2)](https://github.com/PHPirates/KipSafe/raw/master/Kipsafe/app/app-release.apk)
 
 [Download latest debug](https://github.com/PHPirates/KipSafe/raw/master/KipSafe/app/build/outputs/apk/app-debug.apk) (see tags to find if this is ahead of the latest release)
 

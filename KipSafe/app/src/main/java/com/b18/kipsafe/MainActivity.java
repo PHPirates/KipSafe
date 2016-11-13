@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.winsontan520.wversionmanager.library.WVersionManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -41,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
+
+        WVersionManager versionManager = new WVersionManager(this);
+        versionManager.setVersionContentUrl("https://github.com/PHPirates/SolArduino/raw/master/solappduino/version.json");
+        versionManager.setUpdateUrl("https://github.com/PHPirates/SolArduino/raw/master/solappduino/solarduino/app/app-release.apk");
+        versionManager.checkVersion();
 
         kipButton = (ImageButton)findViewById(R.id.kipButton);
 
