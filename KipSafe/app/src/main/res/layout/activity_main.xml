@@ -23,4 +23,20 @@
         android:onClick="hitKip"
         android:contentDescription="@string/kipbutton" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timeslidertext"
+        android:layout_below="@id/kipButton"
+        />
+
+    <SeekBar
+        android:id="@+id/timeslider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timeslidertext"
+        android:max="60"
+        android:progress="0"
+        />
+
 </RelativeLayout>
