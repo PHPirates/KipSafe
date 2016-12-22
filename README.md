@@ -1,8 +1,8 @@
 # KipSafe
 
-[Download latest release (v1.2)](https://github.com/PHPirates/KipSafe/raw/master/Kipsafe/app/app-release.apk)
+[Download latest release (v1.2)](https://github.com/PHPirates/KipSafe/raw/master/Kipsafe/app/KipSafe-release1.2.apk)
 
-[Download latest debug](https://github.com/PHPirates/KipSafe/raw/master/KipSafe/app/build/outputs/apk/app-debug.apk) (see tags to find if this is ahead of the latest release)
+[Download latest debug](https://github.com/PHPirates/KipSafe/raw/master/KipSafe/app/build/outputs/apk/KipSafe-debug.apk) (see tags to find if this is ahead of the latest release)
 
 It may be necessary to check 'install from unknown sources' to install the app.
 
