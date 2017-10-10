@@ -1,12 +1,16 @@
 package com.b18.kipsafe;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -72,6 +76,71 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {}
         });
 
+        //setup timeslider
+
+        SeekBar timeslider = (SeekBar) findViewById(R.id.timeslider);
+
+        //if no value set, default is zero
+        int prefTime = getPrefTime();
+        if (prefTime == -1) {
+            writePrefTime(0);
+            writeSliderText(0);
+        } else {
+            timeslider.setProgress(prefTime);
+            writeSliderText(prefTime);
+        }
+
+        timeslider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                writeSliderText(i);
+                writePrefTime(i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+    }
+
+    /**
+     * write text above slider
+     * @param t minutes
+     */
+    public void writeSliderText(int t) {
+        final TextView slidertext = (TextView) findViewById(R.id.timeslidertext);
+        if (t==0) {
+            slidertext.setText(R.string.slidertext_zero);
+        } else {
+            slidertext.setText(String.format(getResources().getString(R.string.slidertext_one),t));
+        }
+    }
+
+    /**
+     * write time to shared preferences
+     * @param time integer (mins before sunet)
+     */
+    public void writePrefTime(int time) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putInt(getString(R.string.pref_time), time);
+        edit.apply();
+    }
+
+    /**
+     * get time from shared preferences
+     * @return time integer (mins before sunset)
+     */
+    public int getPrefTime() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        return prefs.getInt(getString(R.string.pref_time), -1);
     }
 
     /**
@@ -117,8 +186,8 @@ public class MainActivity extends AppCompatActivity {
             JSONObject results = responseObject.getJSONObject("results");
             time = results.getString("sunset");
             Calendar timeCal = convertIsoToCal(time);
-            //give notification an hour before sunset
-            timeCal.set(Calendar.HOUR_OF_DAY,timeCal.get(Calendar.HOUR_OF_DAY)-1);
+            //give notification before sunset as much in advance as indicated by user (default 0)
+            timeCal.set(Calendar.MINUTE,timeCal.get(Calendar.MINUTE)-getPrefTime());
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
             Toast.makeText(getBaseContext(),"Alarm set for "+sdf.format(timeCal.getTime()),Toast.LENGTH_SHORT).show();
             //dispatch alarm with right time to all phones
