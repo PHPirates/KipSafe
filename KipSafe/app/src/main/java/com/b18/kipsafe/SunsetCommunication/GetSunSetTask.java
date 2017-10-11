@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.b18.kipsafe.Alarms.AlarmManager;
+import com.b18.kipsafe.DataManager;
 import com.b18.kipsafe.IsoConverter;
 
 import org.json.JSONException;
@@ -74,12 +75,17 @@ public class GetSunSetTask extends AsyncTask<Void, Void, String> {
             JSONObject responseObject = new JSONObject(response);
             JSONObject results = responseObject.getJSONObject("results");
             String time = results.getString("sunset");
+
+            // Save the time for possible future use in case there will be no internet.
+            new DataManager(context).saveSunsetTime(time);
+
             Calendar timeCal = new GregorianCalendar();
             try {
                 timeCal = IsoConverter.convertIsoToCal(time);
             } catch (ParseException e) {
                 Toast.makeText(context, "I cannot understand the sunset time", Toast.LENGTH_SHORT).show();
             }
+
             //give notification before sunset as much in advance as indicated by user (default 0)
             timeCal.set(Calendar.MINUTE, timeCal.get(Calendar.MINUTE) - prefTime);
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
@@ -88,8 +94,11 @@ public class GetSunSetTask extends AsyncTask<Void, Void, String> {
             //dispatch alarm with right time to all phones
 //            FirebaseAlarmSender sendAlarmToAllPhones = new FirebaseAlarmSender(time);
 //            sendAlarmToAllPhones.execute();
+
+            // Set alarm only on this phone
             AlarmManager alarmManager = new AlarmManager(context);
-            // todo debug
+
+            // todo debug remove this
             timeCal = new GregorianCalendar();
             timeCal.set(Calendar.MINUTE, timeCal.get(Calendar.MINUTE) + 2);
 

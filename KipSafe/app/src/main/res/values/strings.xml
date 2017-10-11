@@ -3,6 +3,7 @@
     <string name="kipbutton">Kip button</string>
     <string name="notif">Vergeet de kippen niet!</string>
     <string name="pref_time">preferencetime</string>
+    <string name="pref_sunset">preferencesunset</string>
     <string name="slidertext_zero">Set alarm exactly on sunset.</string>
     <string name="slidertext_one">Set alarm for %1$d minutes before sunset.</string>
 </resources>

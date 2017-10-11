@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import com.b18.kipsafe.Alarms.AlarmManager;
+import com.b18.kipsafe.DataManager;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -39,9 +40,8 @@ public class GetSunSetTaskHandler {
 //                    Toast.makeText(getBaseContext(),"The sun could not be reached, therefore we couldn't ask him for his sleepy time.",Toast.LENGTH_SHORT).show();
                     Toast.makeText(context, "Kan de zon niet vinden!", Toast.LENGTH_SHORT).show();
 
-                    // Schedule alarm at default time.
-                    Calendar calendar = new GregorianCalendar();
-                    calendar.set(Calendar.HOUR, 18);
+                    // Schedule alarm at last known time, default if not exists.
+                    Calendar calendar = new DataManager(context).getSunsetTime();
 
                     AlarmManager alarmManager = new AlarmManager(context);
                     alarmManager.setAlarm(calendar);
