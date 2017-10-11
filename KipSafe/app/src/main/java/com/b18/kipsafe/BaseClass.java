@@ -14,6 +14,7 @@ public class BaseClass {
 
     /**
      * update egg on all phones via firebase
+     *
      * @param open boolean egg-state
      */
     public void changeOpen(boolean open) {

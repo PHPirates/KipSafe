@@ -20,18 +20,18 @@
         </activity>
 
         <receiver
-            android:name=".AlarmReceiver"
+            android:name=".Alarms.AlarmReceiver"
             android:enabled="true"
             android:process=":remote" />
 
         <service
-            android:name=".MyFirebaseMessagingService">
+            android:name=".Firebase.FirebaseMessageReceiver">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".FirebaseIDService">
+            android:name=".Firebase.FirebaseIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
