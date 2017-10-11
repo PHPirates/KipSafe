@@ -3,7 +3,7 @@ package com.b18.kipsafe.Firebase;
 import android.app.Activity;
 import android.widget.ImageButton;
 
-import com.b18.kipsafe.Alarms.AlarmManager;
+import com.b18.kipsafe.Alarms.KipAlarmManager;
 import com.b18.kipsafe.R;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -16,11 +16,11 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class FirebaseManager {
 
     private Firebase firebase;
-    private AlarmManager alarmManager;
+    private KipAlarmManager alarmManager;
     private String KEY_OPEN = "open";
     private Activity activity;
 
-    public FirebaseManager(AlarmManager alarmManager, Activity activity) {
+    public FirebaseManager(KipAlarmManager alarmManager, Activity activity) {
         this.alarmManager = alarmManager;
         this.activity = activity;
     }

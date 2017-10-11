@@ -14,7 +14,7 @@ class AlarmScheduler {
 
     private Context context;
 
-    public AlarmScheduler(Context context) {
+    AlarmScheduler(Context context) {
         this.context = context;
     }
 
@@ -26,9 +26,22 @@ class AlarmScheduler {
     void scheduleAlarm(Calendar timeCal) {
         //schedule alarm
         //time received is in UTC
-        Intent intentAlarm = new Intent(context, AlarmReceiver.class);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, timeCal.getTimeInMillis(),
-                PendingIntent.getBroadcast(context, 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+        alarmManager.set(AlarmManager.RTC_WAKEUP, timeCal.getTimeInMillis(), getPendingIntent());
+    }
+
+    /**
+     * Cancel the alarm that was set.
+     */
+    void cancelAlarm() {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(getPendingIntent());
+
+    }
+
+    private PendingIntent getPendingIntent() {
+        Intent intentAlarm = new Intent(context, AlarmReceiver.class);
+        return PendingIntent.getBroadcast(
+                context, 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }

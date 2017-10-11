@@ -3,8 +3,9 @@ package com.b18.kipsafe;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
-import com.b18.kipsafe.Alarms.AlarmManager;
+import com.b18.kipsafe.Alarms.KipAlarmManager;
 import com.b18.kipsafe.Firebase.FirebaseManager;
 import com.b18.kipsafe.SunsetCommunication.GetSunSetTask;
 import com.b18.kipsafe.SunsetCommunication.GetSunSetTaskHandler;
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     // The managers used for the main activity.
     private FirebaseManager firebaseManager;
-    private AlarmManager alarmManager;
+    private KipAlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         new UpdateChecker(this).check();
 
-        alarmManager = new AlarmManager(getBaseContext());
+        alarmManager = new KipAlarmManager(getBaseContext());
         firebaseManager = new FirebaseManager(alarmManager, this);
         firebaseManager.setup();
 
@@ -38,16 +39,21 @@ public class MainActivity extends AppCompatActivity {
      * @param v kip button
      */
     public void hitKip(View v) {
-        boolean open = alarmManager.isAlarmSet();
-        open = !open;
-        //update egg on all phones
-        firebaseManager.changeOpen(open);
-        if (open) {
+        boolean isAlarmSet = alarmManager.isAlarmSet();
+        isAlarmSet = !isAlarmSet;
+
+        // This will also update alarmManager.
+        firebaseManager.changeOpen(isAlarmSet);
+
+        if (isAlarmSet) {
             DataManager dataManager = new DataManager(getBaseContext());
             GetSunSetTask getSunSetTask = new GetSunSetTask(getBaseContext(), dataManager.getPrefTime());
             getSunSetTask.execute();
             GetSunSetTaskHandler handler = new GetSunSetTaskHandler(getBaseContext());
             handler.start(getSunSetTask);
+        } else {
+            alarmManager.cancelAlarm();
+            Toast.makeText(getBaseContext(), "Alarm canceled", Toast.LENGTH_SHORT).show();
         }
     }
 

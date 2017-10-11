@@ -8,12 +8,14 @@ import java.util.Calendar;
  * Set alarms, retreive alarm status (set/not set).
  */
 
-public class AlarmManager {
+public class KipAlarmManager {
 
     private boolean alarmSet;
     private AlarmScheduler scheduler;
 
-    public AlarmManager(Context context) {
+    public KipAlarmManager(Context context) {
+        // Default start-up behaviour.
+        alarmSet = false;
         scheduler = new AlarmScheduler(context);
     }
 
@@ -25,8 +27,12 @@ public class AlarmManager {
         scheduler.scheduleAlarm(calendar);
     }
 
+    /**
+     * Cancel the alarm.
+     */
     public void cancelAlarm() {
-        // void
+        alarmSet = false;
+        scheduler.cancelAlarm();
     }
 
     /**

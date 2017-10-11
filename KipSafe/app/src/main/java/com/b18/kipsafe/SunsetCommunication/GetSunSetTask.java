@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.b18.kipsafe.Alarms.AlarmManager;
+import com.b18.kipsafe.Alarms.KipAlarmManager;
 import com.b18.kipsafe.DataManager;
 import com.b18.kipsafe.IsoConverter;
 
@@ -96,11 +96,11 @@ public class GetSunSetTask extends AsyncTask<Void, Void, String> {
 //            sendAlarmToAllPhones.execute();
 
             // Set alarm only on this phone
-            AlarmManager alarmManager = new AlarmManager(context);
+            KipAlarmManager alarmManager = new KipAlarmManager(context);
 
-            // todo debug remove this
-            timeCal = new GregorianCalendar();
-            timeCal.set(Calendar.MINUTE, timeCal.get(Calendar.MINUTE) + 2);
+            // debug
+//            timeCal = new GregorianCalendar();
+//            timeCal.set(Calendar.SECOND, timeCal.get(Calendar.SECOND) + 10);
 
             alarmManager.setAlarm(timeCal);
         } catch (JSONException e) {

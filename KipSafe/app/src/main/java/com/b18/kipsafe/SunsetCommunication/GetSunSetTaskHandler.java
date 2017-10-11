@@ -6,11 +6,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.b18.kipsafe.Alarms.AlarmManager;
+import com.b18.kipsafe.Alarms.KipAlarmManager;
 import com.b18.kipsafe.DataManager;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  * Starts handler to handle a dataSender and kill it after 2 seconds.
@@ -43,7 +42,7 @@ public class GetSunSetTaskHandler {
                     // Schedule alarm at last known time, default if not exists.
                     Calendar calendar = new DataManager(context).getSunsetTime();
 
-                    AlarmManager alarmManager = new AlarmManager(context);
+                    KipAlarmManager alarmManager = new KipAlarmManager(context);
                     alarmManager.setAlarm(calendar);
                 }
 

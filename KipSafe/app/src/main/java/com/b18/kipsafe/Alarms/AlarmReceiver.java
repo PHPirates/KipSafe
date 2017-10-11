@@ -45,6 +45,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         GetSunSetTask getSunSetTask = new GetSunSetTask(context, dataManager.getPrefTime());
         getSunSetTask.execute();
         GetSunSetTaskHandler handler = new GetSunSetTaskHandler(context);
-//        handler.start(getSunSetTask); // todo debug
+        handler.start(getSunSetTask);
     }
 }
