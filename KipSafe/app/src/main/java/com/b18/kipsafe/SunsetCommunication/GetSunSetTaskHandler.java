@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
+import com.b18.kipsafe.Alarms.AlarmManager;
 import com.b18.kipsafe.Alarms.AlarmScheduler;
 import com.b18.kipsafe.SunsetCommunication.GetSunSetTask;
 
@@ -44,9 +45,8 @@ public class GetSunSetTaskHandler {
                     Calendar calendar = new GregorianCalendar();
                     calendar.set(Calendar.HOUR, 18);
 
-                    AlarmScheduler alarmScheduler = new AlarmScheduler(context);
-
-                    alarmScheduler.scheduleAlarm(calendar);
+                    AlarmManager alarmManager = new AlarmManager(context);
+                    alarmManager.setAlarm(calendar);
                 }
 
             }

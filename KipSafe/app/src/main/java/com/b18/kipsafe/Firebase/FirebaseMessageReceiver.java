@@ -2,6 +2,7 @@ package com.b18.kipsafe.Firebase;
 
 import android.util.Log;
 
+import com.b18.kipsafe.Alarms.AlarmManager;
 import com.b18.kipsafe.Alarms.AlarmScheduler;
 import com.b18.kipsafe.IsoConverter;
 import com.google.firebase.messaging.RemoteMessage;
@@ -21,8 +22,8 @@ public class FirebaseMessageReceiver extends com.google.firebase.messaging.Fireb
         String time = remoteMessage.getData().get("time");
         Log.e("time", time);
         try {
-            AlarmScheduler alarmScheduler = new AlarmScheduler(getBaseContext());
-            alarmScheduler.scheduleAlarm(IsoConverter.convertIsoToCal(time));
+            AlarmManager alarmManager = new AlarmManager(getBaseContext());
+            alarmManager.setAlarm(IsoConverter.convertIsoToCal(time));
         } catch (ParseException e) {
             e.printStackTrace();
         }

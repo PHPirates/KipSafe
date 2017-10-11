@@ -25,7 +25,7 @@ public class AlarmScheduler {
      *
      * @param timeCal Time to schedule alarm for.
      */
-    public void scheduleAlarm(Calendar timeCal) {
+    void scheduleAlarm(Calendar timeCal) {
         //schedule alarm
         //time received is in UTC
         Intent intentAlarm = new Intent(context, AlarmReceiver.class);
