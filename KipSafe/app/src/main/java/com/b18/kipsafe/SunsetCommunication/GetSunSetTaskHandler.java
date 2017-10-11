@@ -7,8 +7,6 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import com.b18.kipsafe.Alarms.AlarmManager;
-import com.b18.kipsafe.Alarms.AlarmScheduler;
-import com.b18.kipsafe.SunsetCommunication.GetSunSetTask;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

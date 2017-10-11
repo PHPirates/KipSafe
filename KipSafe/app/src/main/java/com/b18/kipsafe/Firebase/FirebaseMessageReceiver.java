@@ -3,7 +3,6 @@ package com.b18.kipsafe.Firebase;
 import android.util.Log;
 
 import com.b18.kipsafe.Alarms.AlarmManager;
-import com.b18.kipsafe.Alarms.AlarmScheduler;
 import com.b18.kipsafe.IsoConverter;
 import com.google.firebase.messaging.RemoteMessage;
 

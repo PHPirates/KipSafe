@@ -9,10 +9,10 @@ import com.b18.kipsafe.Firebase.FirebaseManager;
 import com.b18.kipsafe.SunsetCommunication.GetSunSetTask;
 import com.b18.kipsafe.SunsetCommunication.GetSunSetTaskHandler;
 import com.firebase.client.Firebase;
-import com.winsontan520.wversionmanager.library.WVersionManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    // The managers used for the main activity.
     private FirebaseManager firebaseManager;
     private AlarmManager alarmManager;
 
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
 
-        checkForUpdates();
+        new UpdateChecker(this).check();
 
         alarmManager = new AlarmManager(getBaseContext());
         firebaseManager = new FirebaseManager(alarmManager, this);
@@ -30,18 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         KipTimeSlider slider = new KipTimeSlider(this);
         slider.setup();
-
-    }
-
-    /**
-     * Check for updates using WVersionManager.
-     */
-    private void checkForUpdates() {
-        //check for updates (using library)
-        WVersionManager versionManager = new WVersionManager(this);
-        versionManager.setVersionContentUrl("https://github.com/PHPirates/KipSafe/raw/master/version.json");
-        versionManager.setUpdateUrl("https://github.com/PHPirates/KipSafe/raw/master/Kipsafe/app/app-release.apk");
-        versionManager.checkVersion();
     }
 
     /**

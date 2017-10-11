@@ -5,14 +5,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.b18.kipsafe.Alarms.AlarmReceiver;
-
 import java.util.Calendar;
 
 /**
  * Schedule alarms.
  */
-public class AlarmScheduler {
+class AlarmScheduler {
 
     private Context context;
 

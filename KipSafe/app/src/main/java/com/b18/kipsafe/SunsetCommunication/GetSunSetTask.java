@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.b18.kipsafe.Alarms.AlarmManager;
-import com.b18.kipsafe.Alarms.AlarmScheduler;
 import com.b18.kipsafe.IsoConverter;
 
 import org.json.JSONException;
