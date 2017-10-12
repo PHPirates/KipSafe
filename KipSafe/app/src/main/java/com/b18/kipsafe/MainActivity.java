@@ -47,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (isAlarmSet) {
             DataManager dataManager = new DataManager(getBaseContext());
-            GetSunSetTask getSunSetTask = new GetSunSetTask(getBaseContext(), dataManager.getPrefTime());
+            // Schedule alarm for the next sunset.
+            GetSunSetTask getSunSetTask = new GetSunSetTask(
+                    getBaseContext(), dataManager.getPrefTime(), GetSunSetTask.Delay.NO_DELAY);
             getSunSetTask.execute();
             GetSunSetTaskHandler handler = new GetSunSetTaskHandler(getBaseContext());
             handler.start(getSunSetTask);

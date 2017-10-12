@@ -27,12 +27,27 @@ import java.util.GregorianCalendar;
 
 public class GetSunSetTask extends AsyncTask<Void, Void, String> {
 
-    private Context context;
-    private int prefTime;
+    public enum Delay {
+        NO_DELAY,
+        ONE_DAY
+    }
 
-    public GetSunSetTask(Context context, int prefTime) {
+    private Context context;
+    private int minutesBeforeSunset;
+    private Delay delay;
+
+    /**
+     * Constructor. The delay is meant to be no delay when setting the alarm on a certain day
+     * before sunset, and delay should be one day when alarm wants to repeat itself or alarm
+     * is set after sunset.
+     * @param context Android context.
+     * @param timeBeforeSunset Number of minutes before sunset that the alarm should go off.
+     * @param delay Whether to delay the alarm one day or not.
+     */
+    public GetSunSetTask(Context context, int timeBeforeSunset, Delay delay) {
         this.context = context;
-        this.prefTime = prefTime;
+        this.minutesBeforeSunset = timeBeforeSunset;
+        this.delay = delay;
     }
 
     protected String doInBackground(Void... urls) {
@@ -87,9 +102,23 @@ public class GetSunSetTask extends AsyncTask<Void, Void, String> {
             }
 
             //give notification before sunset as much in advance as indicated by user (default 0)
-            timeCal.set(Calendar.MINUTE, timeCal.get(Calendar.MINUTE) - prefTime);
+            timeCal.set(Calendar.MINUTE, timeCal.get(Calendar.MINUTE) - minutesBeforeSunset);
+
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
             Toast.makeText(context, "Alarm set for " + sdf.format(timeCal.getTime()), Toast.LENGTH_SHORT).show();
+
+            // Schedule alarm for next day if wanted.
+            if (delay == Delay.ONE_DAY) {
+                timeCal.set(Calendar.DAY_OF_MONTH, timeCal.get(Calendar.DAY_OF_MONTH) + 1);
+            } else if (delay == Delay.NO_DELAY) {
+                // Schedule alarm for next sunset
+                Calendar now = Calendar.getInstance();
+                if (now.compareTo(timeCal) > 0) {
+                    // Now is after the sunset of today
+                    // So schedule alarm for next sunset
+                    timeCal.set(Calendar.DAY_OF_MONTH, timeCal.get(Calendar.DAY_OF_MONTH) + 1);
+                }
+            }
 
             //dispatch alarm with right time to all phones
 //            FirebaseAlarmSender sendAlarmToAllPhones = new FirebaseAlarmSender(time);
