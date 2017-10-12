@@ -51,7 +51,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setSound(alarmSound)
                 .build();
 
-        // Make sound only stop after user sees notification.
+        // Make sound only stop after user sees notification.p
         notif.flags = Notification.FLAG_INSISTENT;
 
         NotificationManager nm = (NotificationManager) context
