@@ -1,6 +1,6 @@
 # KipSafe
 
-#[Download](https://github.com/PHPirates/KipSafe/blob/master/KipSafe/app/KipSafe-release1.3.apk?raw=true)
+#[Download](https://github.com/PHPirates/KipSafe/blob/master/KipSafe/app/app-release.apk?raw=true)
 
 [Download latest debug](https://github.com/PHPirates/KipSafe/raw/master/KipSafe/app/build/outputs/apk/KipSafe-debug.apk) (see tags to find if this is ahead of the latest release)
 
@@ -14,5 +14,3 @@ Features:
 * Alarm makes rooster sound
 
 Uses a [sunset api](http://sunrise-sunset.org/api) and therefore needs internet connection.
-
-Warning: trying to destroy the egg by continuous tapping may break the database for a short time.
