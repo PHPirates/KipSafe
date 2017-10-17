@@ -16,8 +16,6 @@ public class KipAlarmManager {
     private Context context;
 
     public KipAlarmManager(Context context) {
-        // Default start-up behaviour.
-        setIsAlarmSet(false);
         scheduler = new AlarmScheduler(context);
         this.context = context;
     }

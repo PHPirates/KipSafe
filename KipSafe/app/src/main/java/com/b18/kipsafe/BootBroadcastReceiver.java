@@ -19,6 +19,10 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
         KipAlarmManager alarmManager = new KipAlarmManager(pContext);
         SharedPreferenceManager preferenceManager = new SharedPreferenceManager(pContext);
         Calendar time = preferenceManager.getAlarmTime();
+        // debug
+//        time = Calendar.getInstance();
+//        time.set(Calendar.SECOND, time.get(Calendar.SECOND) + 10);
+
         alarmManager.setAlarm(time);
     }
 }

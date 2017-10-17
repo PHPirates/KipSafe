@@ -27,7 +27,7 @@ class AlarmScheduler {
         //schedule alarm
         //time received is in UTC
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, timeCal.getTimeInMillis(), getPendingIntent());
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeCal.getTimeInMillis(), getPendingIntent());
     }
 
     /**

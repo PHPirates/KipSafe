@@ -47,7 +47,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentText("tok tok!") //required
                 .setContentIntent(contentPendingIntent)
                 .setSmallIcon(R.drawable.egg) //required
-                .setVibrate(new long[]{0, 200, 100, 50, 50, 50, 50, 1000, 1000})
+                .setVibrate(new long[]{0, 200, 100, 50, 50, 50, 50, 1000, 1000}) // debug
                 .setSound(alarmSound)
                 .build();
 
