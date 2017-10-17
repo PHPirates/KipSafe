@@ -7,7 +7,7 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import com.b18.kipsafe.Alarms.KipAlarmManager;
-import com.b18.kipsafe.DataManager;
+import com.b18.kipsafe.SharedPreferenceManager;
 
 import java.util.Calendar;
 
@@ -40,7 +40,7 @@ public class GetSunSetTaskHandler {
                     Toast.makeText(context, "Kan de zon niet vinden!", Toast.LENGTH_SHORT).show();
 
                     // Schedule alarm at last known time, default if not exists.
-                    Calendar calendar = new DataManager(context).getSunsetTime();
+                    Calendar calendar = new SharedPreferenceManager(context).getSunsetTime();
 
                     KipAlarmManager alarmManager = new KipAlarmManager(context);
                     alarmManager.setAlarm(calendar);

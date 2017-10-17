@@ -2,6 +2,8 @@ package com.b18.kipsafe.Alarms;
 
 import android.content.Context;
 
+import com.b18.kipsafe.SharedPreferenceManager;
+
 import java.util.Calendar;
 
 /**
@@ -10,20 +12,21 @@ import java.util.Calendar;
 
 public class KipAlarmManager {
 
-    private boolean alarmSet;
     private AlarmScheduler scheduler;
+    private Context context;
 
     public KipAlarmManager(Context context) {
         // Default start-up behaviour.
-        alarmSet = false;
+        setIsAlarmSet(false);
         scheduler = new AlarmScheduler(context);
+        this.context = context;
     }
 
     /**
      * Schedule alarm for given time.
      */
     public void setAlarm(Calendar calendar) {
-        alarmSet = true;
+        setIsAlarmSet(true);
         scheduler.scheduleAlarm(calendar);
     }
 
@@ -31,7 +34,7 @@ public class KipAlarmManager {
      * Cancel the alarm.
      */
     public void cancelAlarm() {
-        alarmSet = false;
+        setIsAlarmSet(false);
         scheduler.cancelAlarm();
     }
 
@@ -40,14 +43,17 @@ public class KipAlarmManager {
      * @return whether alarm is set or not.
      */
     public boolean isAlarmSet() {
-        return alarmSet;
+        SharedPreferenceManager manager = new SharedPreferenceManager(context);
+        return manager.getIsAlarmSet();
     }
 
     /**
      * Allow state to change because it can happen that the alarm was set on another phone, and
      * then the state is updated with Firebase.
+     * @param isAlarmSet true if alarm is set
      */
-    public void setIsAlarmSet(boolean open) {
-        this.alarmSet = open;
+    public void setIsAlarmSet(boolean isAlarmSet) {
+        SharedPreferenceManager manager = new SharedPreferenceManager(context);
+        manager.saveIsAlarmSet(isAlarmSet);
     }
 }

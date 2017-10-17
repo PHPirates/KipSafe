@@ -21,12 +21,12 @@ public class KipTimeSlider {
 
         SeekBar timeslider = (SeekBar) activity.findViewById(R.id.timeslider);
 
-        final DataManager dataManager = new DataManager(activity);
+        final SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
 
         //if no value set, default is zero
-        int prefTime = dataManager.getPrefTime();
+        int prefTime = sharedPreferenceManager.getPrefTime();
         if (prefTime == -1) {
-            dataManager.writePrefTime(0);
+            sharedPreferenceManager.writePrefTime(0);
             writeSliderText(0);
         } else {
             timeslider.setProgress(prefTime);
@@ -37,7 +37,7 @@ public class KipTimeSlider {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 writeSliderText(i);
-                dataManager.writePrefTime(i);
+                sharedPreferenceManager.writePrefTime(i);
             }
 
             @Override

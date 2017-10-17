@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
         firebaseManager.changeOpen(isAlarmSet);
 
         if (isAlarmSet) {
-            DataManager dataManager = new DataManager(getBaseContext());
+            SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(getBaseContext());
             // Schedule alarm for the next sunset.
             GetSunSetTask getSunSetTask = new GetSunSetTask(
-                    getBaseContext(), dataManager.getPrefTime(), GetSunSetTask.Delay.NO_DELAY);
+                    getBaseContext(), sharedPreferenceManager.getPrefTime(), GetSunSetTask.Delay.NO_DELAY);
             getSunSetTask.execute();
             GetSunSetTaskHandler handler = new GetSunSetTaskHandler(getBaseContext());
             handler.start(getSunSetTask);

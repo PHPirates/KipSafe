@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.b18.kipsafe.Alarms.KipAlarmManager;
-import com.b18.kipsafe.DataManager;
+import com.b18.kipsafe.SharedPreferenceManager;
 import com.b18.kipsafe.IsoConverter;
 
 import org.json.JSONException;
@@ -92,7 +92,7 @@ public class GetSunSetTask extends AsyncTask<Void, Void, String> {
             String time = results.getString("sunset");
 
             // Save the time for possible future use in case there will be no internet.
-            new DataManager(context).saveSunsetTime(time);
+            new SharedPreferenceManager(context).saveSunsetTime(time);
 
             Calendar timeCal = new GregorianCalendar();
             try {

@@ -3,6 +3,8 @@ package com.b18.kipsafe;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.b18.kipsafe.Alarms.KipAlarmManager;
+
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -11,17 +13,15 @@ import java.util.GregorianCalendar;
  * Manage SharedPreferences.
  */
 
-public class DataManager {
+public class SharedPreferenceManager {
 
     private SharedPreferences prefs;
-    private String minsKeyString;
-    private String sunsetKeyString;
+    private Context context;
 
-    public DataManager(Context context) {
+    public SharedPreferenceManager(Context context) {
         prefs = android.preference
                 .PreferenceManager.getDefaultSharedPreferences(context);
-        minsKeyString = context.getResources().getString(R.string.pref_time);
-        sunsetKeyString = context.getResources().getString(R.string.pref_sunset);
+        this.context = context;
     }
 
     /**
@@ -31,7 +31,8 @@ public class DataManager {
      */
     public void writePrefTime(int time) {
         SharedPreferences.Editor edit = prefs.edit();
-        edit.putInt(minsKeyString, time);
+        String keyString = context.getResources().getString(R.string.pref_time);
+        edit.putInt(keyString, time);
         edit.apply();
     }
 
@@ -41,7 +42,8 @@ public class DataManager {
      * @return time integer
      */
     public int getPrefTime() {
-        return prefs.getInt(minsKeyString, -1);
+        String keyString = context.getResources().getString(R.string.pref_time);
+        return prefs.getInt(keyString, -1);
     }
 
     /**
@@ -50,7 +52,8 @@ public class DataManager {
      */
     public void saveSunsetTime(String time) {
         SharedPreferences.Editor edit = prefs.edit();
-        edit.putString(sunsetKeyString, time);
+        String keyString = context.getResources().getString(R.string.pref_sunset);
+        edit.putString(keyString, time);
         edit.apply();
     }
 
@@ -59,7 +62,8 @@ public class DataManager {
      * @return Calendar.
      */
     public Calendar getSunsetTime() {
-        String time = prefs.getString(sunsetKeyString, "2017-10-11T17:00:00+00:00");
+        String keyString = context.getResources().getString(R.string.pref_sunset);
+        String time = prefs.getString(keyString, "2017-10-11T17:00:00+00:00");
         try {
             return IsoConverter.convertIsoToCal(time);
         } catch (ParseException e) {
@@ -68,6 +72,25 @@ public class DataManager {
         Calendar defaultCalendar = new GregorianCalendar();
         defaultCalendar.set(Calendar.HOUR_OF_DAY, 18);
         return defaultCalendar;
+    }
+
+    /**
+     * Save boolean whether the alarm is set or not.
+     */
+    public void saveIsAlarmSet(boolean isAlarmSet) {
+        SharedPreferences.Editor edit = prefs.edit();
+        String keyString = context.getResources().getString(R.string.pref_isalarmset);
+        edit.putBoolean(keyString, isAlarmSet);
+        edit.apply();
+    }
+
+    /**
+     * Get whether the alarm is set or not.
+     * @return boolean, true if alarm is set
+     */
+    public boolean getIsAlarmSet() {
+        String keyString = context.getResources().getString(R.string.pref_isalarmset);
+        return prefs.getBoolean(keyString, false);
     }
 
 }
