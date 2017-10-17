@@ -75,6 +75,17 @@ public class SharedPreferenceManager {
     }
 
     /**
+     * Combines sunset and preferred minutes before sunset to an alarm time.
+     * @return preferred alarm time
+     */
+    public Calendar getAlarmTime() {
+        Calendar time = getSunsetTime();
+        int minutes = getPrefTime();
+        time.add(Calendar.MINUTE, -minutes);
+        return time;
+    }
+
+    /**
      * Save boolean whether the alarm is set or not.
      */
     public void saveIsAlarmSet(boolean isAlarmSet) {
@@ -86,7 +97,7 @@ public class SharedPreferenceManager {
 
     /**
      * Get whether the alarm is set or not.
-     * @return boolean, true if alarm is set
+     * @return true if alarm is set
      */
     public boolean getIsAlarmSet() {
         String keyString = context.getResources().getString(R.string.pref_isalarmset);

@@ -40,7 +40,7 @@ public class GetSunSetTaskHandler {
                     Toast.makeText(context, "Kan de zon niet vinden!", Toast.LENGTH_SHORT).show();
 
                     // Schedule alarm at last known time, default if not exists.
-                    Calendar calendar = new SharedPreferenceManager(context).getSunsetTime();
+                    Calendar calendar = new SharedPreferenceManager(context).getAlarmTime();
 
                     KipAlarmManager alarmManager = new KipAlarmManager(context);
                     alarmManager.setAlarm(calendar);
