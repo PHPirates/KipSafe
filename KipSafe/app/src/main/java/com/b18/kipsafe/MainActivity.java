@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
         new UpdateChecker(this).check();
 
-        alarmManager = new KipAlarmManager(getBaseContext());
-        firebaseManager = new FirebaseManager(alarmManager, this);
-        firebaseManager.setup();
+        alarmManager = new KipAlarmManager(this);
+//        firebaseManager = new FirebaseManager(alarmManager, this);
+//        firebaseManager.setup();
 
         KipTimeSlider slider = new KipTimeSlider(this);
         slider.setup();
@@ -43,15 +43,16 @@ public class MainActivity extends AppCompatActivity {
         isAlarmSet = !isAlarmSet;
 
         // This will also update alarmManager.
-        firebaseManager.changeOpen(isAlarmSet);
+//        firebaseManager.changeOpen(isAlarmSet);
+        alarmManager.setIsAlarmSet(isAlarmSet);
 
         if (isAlarmSet) {
-            SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(getBaseContext());
+            SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(this);
             // Schedule alarm for the next sunset.
             GetSunSetTask getSunSetTask = new GetSunSetTask(
-                    getBaseContext(), sharedPreferenceManager.getPrefTime(), GetSunSetTask.Delay.NO_DELAY);
+                    this, sharedPreferenceManager.getPrefTime(), GetSunSetTask.Delay.NO_DELAY);
             getSunSetTask.execute();
-            GetSunSetTaskHandler handler = new GetSunSetTaskHandler(getBaseContext());
+            GetSunSetTaskHandler handler = new GetSunSetTaskHandler(this);
             handler.start(getSunSetTask);
         } else {
             alarmManager.cancelAlarm();

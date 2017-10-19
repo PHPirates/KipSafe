@@ -1,7 +1,10 @@
 package com.b18.kipsafe.Alarms;
 
+import android.app.Activity;
 import android.content.Context;
+import android.widget.ImageButton;
 
+import com.b18.kipsafe.R;
 import com.b18.kipsafe.SharedPreferenceManager;
 
 import java.util.Calendar;
@@ -18,6 +21,10 @@ public class KipAlarmManager {
     public KipAlarmManager(Context context) {
         scheduler = new AlarmScheduler(context);
         this.context = context;
+
+        SharedPreferenceManager manager = new SharedPreferenceManager(context);
+        boolean isAlarmSet = manager.getIsAlarmSet();
+        setIsAlarmSet(isAlarmSet);
     }
 
     /**
@@ -51,6 +58,12 @@ public class KipAlarmManager {
      * @param isAlarmSet true if alarm is set
      */
     public void setIsAlarmSet(boolean isAlarmSet) {
+        //update egg picture
+        ImageButton kipButton;
+        Activity activity = (Activity) context;
+        kipButton = activity.findViewById(R.id.kipButton);
+        kipButton.setSelected(isAlarmSet);
+
         SharedPreferenceManager manager = new SharedPreferenceManager(context);
         manager.saveIsAlarmSet(isAlarmSet);
     }
