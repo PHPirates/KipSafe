@@ -8,6 +8,7 @@ import com.b18.kipsafe.R;
 import com.b18.kipsafe.SharedPreferenceManager;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Set alarms, retreive alarm status (set/not set).
@@ -21,16 +22,16 @@ public class KipAlarmManager {
     public KipAlarmManager(Context context) {
         scheduler = new AlarmScheduler(context);
         this.context = context;
-
-        SharedPreferenceManager manager = new SharedPreferenceManager(context);
-        boolean isAlarmSet = manager.getIsAlarmSet();
-        setIsAlarmSet(isAlarmSet);
     }
 
     /**
      * Schedule alarm for given time.
      */
     public void setAlarm(Calendar calendar) {
+        // debug
+//        calendar = new GregorianCalendar();
+//        calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + 10);
+
         setIsAlarmSet(true);
         scheduler.scheduleAlarm(calendar);
     }
@@ -58,11 +59,17 @@ public class KipAlarmManager {
      * @param isAlarmSet true if alarm is set
      */
     public void setIsAlarmSet(boolean isAlarmSet) {
-        //update egg picture
-        ImageButton kipButton;
-        Activity activity = (Activity) context;
-        kipButton = activity.findViewById(R.id.kipButton);
-        kipButton.setSelected(isAlarmSet);
+        try {
+            //update egg picture
+            ImageButton kipButton;
+            Activity activity = (Activity) context;
+            kipButton = activity.findViewById(R.id.kipButton);
+            kipButton.setSelected(isAlarmSet);
+        } catch (ClassCastException e) {
+            // We cannot cast the context to an activity. So we were called from a context
+            // that does not correspond to the main activity, like a notification receiver.
+            // Skipping update (will happen when Main is launched next time
+        }
 
         SharedPreferenceManager manager = new SharedPreferenceManager(context);
         manager.saveIsAlarmSet(isAlarmSet);

@@ -1,8 +1,10 @@
 package com.b18.kipsafe;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.b18.kipsafe.Alarms.KipAlarmManager;
@@ -31,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
         KipTimeSlider slider = new KipTimeSlider(this);
         slider.setup();
+
+        // Update egg picture, to be sure.
+        ImageButton kipButton;
+        kipButton = findViewById(R.id.kipButton);
+        kipButton.setSelected(alarmManager.isAlarmSet());
     }
 
     /**
@@ -44,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         // This will also update alarmManager.
 //        firebaseManager.changeOpen(isAlarmSet);
+
+        // Provide immediate user feedback
         alarmManager.setIsAlarmSet(isAlarmSet);
 
         if (isAlarmSet) {

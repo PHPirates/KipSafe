@@ -127,10 +127,6 @@ public class GetSunSetTask extends AsyncTask<Void, Void, String> {
             // Set alarm only on this phone
             KipAlarmManager alarmManager = new KipAlarmManager(context);
 
-            // debug
-//            timeCal = new GregorianCalendar();
-//            timeCal.set(Calendar.SECOND, timeCal.get(Calendar.SECOND) + 10);
-
             alarmManager.setAlarm(timeCal);
         } catch (JSONException e) {
             e.printStackTrace();
