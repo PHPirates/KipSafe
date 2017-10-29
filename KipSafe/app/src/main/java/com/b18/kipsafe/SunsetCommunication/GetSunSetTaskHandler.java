@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.b18.kipsafe.Alarms.KipAlarmManager;
 import com.b18.kipsafe.SharedPreferenceManager;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -44,6 +45,8 @@ public class GetSunSetTaskHandler {
 
                     KipAlarmManager alarmManager = new KipAlarmManager(context);
                     alarmManager.setAlarm(calendar);
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
+                    Toast.makeText(context, "Alarm set for " + sdf.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
                 }
 
             }
