@@ -3,11 +3,8 @@ package com.b18.kipsafe;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.b18.kipsafe.Alarms.KipAlarmManager;
-
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  * Manage SharedPreferences.
@@ -58,27 +55,34 @@ public class SharedPreferenceManager {
     }
 
     /**
-     * Get the last known sunet.
+     * Get the last known sunset, default time if could not parse api result.
      * @return Calendar.
+     * @throws DataNotFoundException when the last known sunset could not be found
      */
-    public Calendar getSunsetTime() {
+    public Calendar getSunsetTime() throws DataNotFoundException {
         String keyString = context.getResources().getString(R.string.pref_sunset);
-        String time = prefs.getString(keyString, "2017-10-11T17:00:00+00:00");
+        String defaultTime = "2017-10-11T17:00:00+00:00";
+        String time = prefs.getString(keyString, defaultTime);
+        if (time.equals(defaultTime)) {
+            throw new DataNotFoundException("Could not find requested data in SharedPreferences");
+        }
         try {
             return IsoConverter.convertIsoToCal(time);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Calendar defaultCalendar = new GregorianCalendar();
-        defaultCalendar.set(Calendar.HOUR_OF_DAY, 18);
-        return defaultCalendar;
+        // Couldn't understand what the sunset api returned.
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 18);
+        return calendar;
     }
 
     /**
      * Combines sunset and preferred minutes before sunset to an alarm time.
      * @return preferred alarm time
+     * @throws DataNotFoundException when the last known sunset could not be found
      */
-    public Calendar getAlarmTime() {
+    public Calendar getAlarmTime() throws DataNotFoundException {
         Calendar time = getSunsetTime();
         int minutes = getPrefTime();
         time.add(Calendar.MINUTE, -minutes);

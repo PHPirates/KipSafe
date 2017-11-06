@@ -1,6 +1,5 @@
 package com.b18.kipsafe;
 
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.Toast;
 import com.b18.kipsafe.Alarms.KipAlarmManager;
 import com.b18.kipsafe.Firebase.FirebaseManager;
 import com.b18.kipsafe.SunsetCommunication.GetSunSetTask;
-import com.b18.kipsafe.SunsetCommunication.GetSunSetTaskHandler;
 import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,11 +56,8 @@ public class MainActivity extends AppCompatActivity {
         if (isAlarmSet) {
             SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(this);
             // Schedule alarm for the next sunset.
-            GetSunSetTask getSunSetTask = new GetSunSetTask(
-                    this, sharedPreferenceManager.getPrefTime(), GetSunSetTask.Delay.NO_DELAY);
-            getSunSetTask.execute();
-            GetSunSetTaskHandler handler = new GetSunSetTaskHandler(this);
-            handler.start(getSunSetTask);
+            AlarmSetter handler = new AlarmSetter(this);
+            handler.set(sharedPreferenceManager.getPrefTime(), GetSunSetTask.Delay.NO_DELAY);
         } else {
             alarmManager.cancelAlarm();
             Toast.makeText(getBaseContext(), "Alarm canceled", Toast.LENGTH_SHORT).show();

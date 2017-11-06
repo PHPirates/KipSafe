@@ -1,4 +1,4 @@
 {
-"version_code": 6,
-"content": "Version 1.3.2 <p>New features of v1.3:</p><li>Option to change number of minutes before sunset</li><li>Added rooster sound</li><li>Make alarm repeat every day </li><p>Bug fixes:</p><li>Fixed bug which closed egg by itself</li><li>Fixed bug which made alarm go off only once</li>"
+"version_code": 7,
+"content": "Version 1.3.2 <p>New features of v1.3:</p><li>Option to change number of minutes before sunset</li><li>Added rooster sound</li><li>Make alarm repeat every day </li><p>Bug fixes:</p><li>Fixed bug which closed egg by itself</li><li>Fixed bug which made alarm go off only once</li><li>Fixed bug which made alarm go off immediately after reboot</li>"
 }

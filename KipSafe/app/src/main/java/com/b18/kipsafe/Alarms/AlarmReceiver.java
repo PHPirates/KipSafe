@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.b18.kipsafe.SharedPreferenceManager;
 import com.b18.kipsafe.MainActivity;
 import com.b18.kipsafe.SunsetCommunication.GetSunSetTask;
-import com.b18.kipsafe.SunsetCommunication.GetSunSetTaskHandler;
+import com.b18.kipsafe.AlarmSetter;
 import com.b18.kipsafe.R;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -62,10 +62,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Schedule alarm for next day
         SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(context);
         // Next day, not this day, so delay one day.
-        GetSunSetTask getSunSetTask = new GetSunSetTask(context, sharedPreferenceManager.getPrefTime(),
+        AlarmSetter handler = new AlarmSetter(context);
+        handler.set(sharedPreferenceManager.getPrefTime(),
                 GetSunSetTask.Delay.ONE_DAY);
-        getSunSetTask.execute();
-        GetSunSetTaskHandler handler = new GetSunSetTaskHandler(context);
-        handler.start(getSunSetTask);
     }
 }
