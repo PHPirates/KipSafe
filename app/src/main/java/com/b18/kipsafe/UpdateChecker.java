@@ -23,7 +23,7 @@ public class UpdateChecker {
         //check for updates (using library)
         WVersionManager versionManager = new WVersionManager(activity);
         versionManager.setVersionContentUrl("https://github.com/PHPirates/KipSafe/raw/master/version.json");
-        versionManager.setUpdateUrl("https://github.com/PHPirates/KipSafe/blob/master/KipSafe/app/app-release.apk?raw=true");
+        versionManager.setUpdateUrl("https://github.com/PHPirates/KipSafe/blob/master/app/release/app-release.apk?raw=true");
         versionManager.checkVersion();
     }
 
