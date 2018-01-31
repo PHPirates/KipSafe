@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import java.text.ParseException;
 import java.util.Calendar;
 
+import static com.b18.kipsafe.converters.IsoConverterKt.convertIsoToCalendar;
+
 /**
  * Manage SharedPreferences.
  */
@@ -67,7 +69,7 @@ public class SharedPreferenceManager {
             throw new DataNotFoundException("Could not find requested data in SharedPreferences");
         }
         try {
-            return IsoConverter.convertIsoToCal(time);
+            return convertIsoToCalendar(time);
         } catch (ParseException e) {
             e.printStackTrace();
         }

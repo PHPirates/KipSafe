@@ -3,10 +3,11 @@ package com.b18.kipsafe.Firebase;
 import android.util.Log;
 
 import com.b18.kipsafe.Alarms.KipAlarmManager;
-import com.b18.kipsafe.IsoConverter;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.text.ParseException;
+
+import static com.b18.kipsafe.converters.IsoConverterKt.convertIsoToCalendar;
 
 
 public class FirebaseMessageReceiver extends com.google.firebase.messaging.FirebaseMessagingService {
@@ -22,7 +23,7 @@ public class FirebaseMessageReceiver extends com.google.firebase.messaging.Fireb
         Log.e("time", time);
         try {
             KipAlarmManager alarmManager = new KipAlarmManager(getBaseContext());
-            alarmManager.setAlarm(IsoConverter.convertIsoToCal(time));
+            alarmManager.setAlarm(convertIsoToCalendar(time));
         } catch (ParseException e) {
             e.printStackTrace();
         }

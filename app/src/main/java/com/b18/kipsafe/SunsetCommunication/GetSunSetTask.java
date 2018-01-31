@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import com.b18.kipsafe.Alarms.KipAlarmManager;
 import com.b18.kipsafe.SharedPreferenceManager;
-import com.b18.kipsafe.IsoConverter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +19,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import static com.b18.kipsafe.converters.IsoConverterKt.convertIsoToCalendar;
 
 /**
  * Get sunset time and pass back result.
@@ -96,7 +97,7 @@ public class GetSunSetTask extends AsyncTask<Void, Void, String> {
 
             Calendar timeCal = new GregorianCalendar();
             try {
-                timeCal = IsoConverter.convertIsoToCal(time);
+                timeCal = convertIsoToCalendar(time);
             } catch (ParseException e) {
                 Toast.makeText(context, "I cannot understand the sunset time", Toast.LENGTH_SHORT).show();
             }
