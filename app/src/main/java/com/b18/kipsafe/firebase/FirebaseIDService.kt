@@ -4,7 +4,7 @@ import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.FirebaseInstanceIdService
 
-class FirebaseIDServiceKot : FirebaseInstanceIdService() {
+class FirebaseIDService : FirebaseInstanceIdService() {
     private val TAG = "FirebaseIDService"
 
     override fun onTokenRefresh() {
