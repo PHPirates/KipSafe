@@ -29,7 +29,7 @@ class BootBroadcastReceiver : BroadcastReceiver(){
                 }
                 alarmManager.setAlarm(time)
             } catch (e: DataNotFoundException){
-                AlarmSetterKot(pContext).set(preferenceManager.prefTime,
+                AlarmSetter(pContext).set(preferenceManager.prefTime,
                         GetSunSetTask.Delay.NO_DELAY)
             }
         }

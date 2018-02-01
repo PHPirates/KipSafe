@@ -13,7 +13,7 @@ import java.util.*
 /**
  * Starts handler to handle a dataSender and kill it after 2 seconds.
  */
-class AlarmSetterKot(private val context: Context?) {
+class AlarmSetter(private val context: Context?) {
     /**
      * Sets alarm by first requesting sunset time, if it is not reachable it will
      * kill it after 2 seconds.
