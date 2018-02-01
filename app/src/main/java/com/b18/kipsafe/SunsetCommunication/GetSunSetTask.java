@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.b18.kipsafe.Alarms.KipAlarmManager;
+import com.b18.kipsafe.alarms.KipAlarmManager;
 import com.b18.kipsafe.SharedPreferenceManager;
 
 import org.json.JSONException;

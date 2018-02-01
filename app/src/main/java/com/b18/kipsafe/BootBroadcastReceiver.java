@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.b18.kipsafe.Alarms.KipAlarmManager;
+import com.b18.kipsafe.alarms.KipAlarmManager;
 import com.b18.kipsafe.SunsetCommunication.GetSunSetTask;
 
 import java.util.Calendar;

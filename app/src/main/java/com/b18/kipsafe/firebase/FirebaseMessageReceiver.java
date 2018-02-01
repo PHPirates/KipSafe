@@ -1,8 +1,8 @@
-package com.b18.kipsafe.Firebase;
+package com.b18.kipsafe.firebase;
 
 import android.util.Log;
 
-import com.b18.kipsafe.Alarms.KipAlarmManager;
+import com.b18.kipsafe.alarms.KipAlarmManager;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.text.ParseException;

@@ -1,4 +1,4 @@
-package com.b18.kipsafe.Firebase;
+package com.b18.kipsafe.firebase;
 
 import android.util.Log;
 

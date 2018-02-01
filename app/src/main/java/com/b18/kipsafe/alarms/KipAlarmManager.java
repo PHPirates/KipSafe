@@ -1,4 +1,4 @@
-package com.b18.kipsafe.Alarms;
+package com.b18.kipsafe.alarms;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,6 @@ import com.b18.kipsafe.R;
 import com.b18.kipsafe.SharedPreferenceManager;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  * Set alarms, retreive alarm status (set/not set).

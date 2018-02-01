@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.b18.kipsafe.Alarms.KipAlarmManager;
-import com.b18.kipsafe.Firebase.FirebaseManager;
+import com.b18.kipsafe.alarms.KipAlarmManager;
+import com.b18.kipsafe.firebase.FirebaseManager;
 import com.b18.kipsafe.SunsetCommunication.GetSunSetTask;
 import com.firebase.client.Firebase;
 

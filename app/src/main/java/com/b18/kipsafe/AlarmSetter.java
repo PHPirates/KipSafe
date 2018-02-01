@@ -6,8 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.b18.kipsafe.Alarms.KipAlarmManager;
-import com.b18.kipsafe.SharedPreferenceManager;
+import com.b18.kipsafe.alarms.KipAlarmManager;
 import com.b18.kipsafe.SunsetCommunication.GetSunSetTask;
 
 import java.text.SimpleDateFormat;

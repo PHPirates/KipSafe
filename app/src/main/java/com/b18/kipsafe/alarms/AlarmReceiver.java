@@ -1,4 +1,4 @@
-package com.b18.kipsafe.Alarms;
+package com.b18.kipsafe.alarms;
 
 import android.app.Notification;
 import android.app.NotificationManager;
