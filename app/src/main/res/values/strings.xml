@@ -7,4 +7,6 @@
     <string name="pref_isalarmset">preferenceisalarmset</string>
     <string name="slidertext_zero">Set alarm exactly on sunset.</string>
     <string name="slidertext_one">Set alarm for %1$d minutes before sunset.</string>
+    <string name="version_url">https://github.com/PHPirates/KipSafe/raw/master/version.json</string>
+    <string name="release_url">https://github.com/PHPirates/KipSafe/blob/master/app/release/app-release.apk?raw=true</string>
 </resources>
