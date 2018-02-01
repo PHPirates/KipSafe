@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         if (isAlarmSet) {
             SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(this);
             // Schedule alarm for the next sunset.
-            AlarmSetter handler = new AlarmSetter(this);
+            AlarmSetterKot handler = new AlarmSetterKot(this);
             handler.set(sharedPreferenceManager.getPrefTime(), GetSunSetTask.Delay.NO_DELAY);
         } else {
             alarmManager.cancelAlarm();
