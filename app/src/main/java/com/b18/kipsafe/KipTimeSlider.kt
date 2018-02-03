@@ -13,10 +13,10 @@ class KipTimeSlider(private val activity: Activity) {
      * Setup the TimeSlider.
      */
     fun setup() {
-        val sharedPreferenceManager = SharedPreferenceManagerKot(activity)
+        val sharedPreferenceManager = SharedPreferenceManager(activity)
 
         // Default is zero if no time is set.
-        val prefTime = sharedPreferenceManager.getTime()
+        val prefTime = sharedPreferenceManager.getMinutes()
         if (prefTime == -1) {
             sharedPreferenceManager.savePref(0)
             writeSliderText(0)

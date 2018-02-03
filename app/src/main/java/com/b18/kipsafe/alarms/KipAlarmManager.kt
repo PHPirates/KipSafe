@@ -3,7 +3,7 @@ package com.b18.kipsafe.alarms
 import android.app.Activity
 import android.content.Context
 import android.widget.ImageButton
-import com.b18.kipsafe.SharedPreferenceManagerKot
+import com.b18.kipsafe.SharedPreferenceManager
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -39,7 +39,7 @@ class KipAlarmManager(private val context: Context?) {
      * @return whether alarm is set or not.
      */
     fun isAlarmSet(): Boolean {
-        return SharedPreferenceManagerKot(context).getIsAlarmSet()
+        return SharedPreferenceManager(context).getIsAlarmSet()
     }
 
     /**
@@ -58,6 +58,6 @@ class KipAlarmManager(private val context: Context?) {
             // Skipping update (will happen when Main is launched next time).
         }
 
-        SharedPreferenceManagerKot(context).savePref(isAlarmSet)
+        SharedPreferenceManager(context).savePref(isAlarmSet)
     }
 }

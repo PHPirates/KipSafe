@@ -34,7 +34,7 @@ class AlarmSetter(private val context: Context?) {
                 Toast.makeText(context, "Kan de zon niet vinden!", Toast.LENGTH_SHORT).show()
 
                 val calendar: Calendar = try {
-                    SharedPreferenceManagerKot(context).getSunset()
+                    SharedPreferenceManager(context).getAlarmTime()
                 } catch (e: DataNotFoundException) {
                     val cal = Calendar.getInstance()
                     cal.set(Calendar.HOUR_OF_DAY, 18)

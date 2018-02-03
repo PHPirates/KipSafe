@@ -8,7 +8,7 @@ import com.b18.kipsafe.util.prefTime
 import java.text.ParseException
 import java.util.*
 
-class SharedPreferenceManagerKot(val context: Context?) {
+class SharedPreferenceManager(val context: Context?) {
     private val prefs = android.preference
             .PreferenceManager.getDefaultSharedPreferences(context)
 
@@ -47,7 +47,7 @@ class SharedPreferenceManagerKot(val context: Context?) {
     /**
      * Get the number of minutes before sunset.
      */
-    fun getTime(): Int {
+    fun getMinutes(): Int {
         return prefs.getInt(prefTime, -1)
     }
 
@@ -78,5 +78,16 @@ class SharedPreferenceManagerKot(val context: Context?) {
      */
     fun getIsAlarmSet(): Boolean {
         return prefs.getBoolean(prefIsAlarmSet, false)
+    }
+
+    /**
+     * Combines sunset and preferred minutes before sunset to return an alarm time.
+     *
+     * @return Calendar object with preferred allar
+     */
+    fun getAlarmTime(): Calendar {
+        val time = getSunset()
+        time.add(Calendar.MINUTE, -getMinutes())
+        return time
     }
 }
