@@ -1,7 +1,11 @@
 <resources>
-    <string name="app_name">KipSafe</string>
-    <string name="kipbutton">Kip button</string>
-    <string name="notif">Vergeet de kippen niet!</string>
-    <string name="slidertext_zero">Zet wekker precies op zonsondergang.</string>
-    <string name="slidertext_one">Zet wekker %1$d minuten voor zonsondergang.</string>
+    <string name="app_name" translatable="false">KipSafe</string>
+    <string name="kipbutton" translatable="false">Kip button</string>
+    <string name="notif">Don\'t forget your chickens!</string>
+    <string name="slidertext_zero">Set alarm on sunset.</string>
+    <string name="slidertext_one">Set alarm %1$d minutes before sunset.</string>
+    <string name="cancel_alarm">Alarm cancelled.</string>
+    <string name="alarm_set">Alarm set on %1$s.</string>
+    <string name="no_sun">Can\'t find the sun!</string>
+    <string name="kukeleku">Cock-A-Doodle-Doo!</string>
 </resources>

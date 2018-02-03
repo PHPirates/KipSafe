@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                     GetSunsetTask.Delay.NO_DELAY)
         } else {
             alarmManager.cancelAlarm()
-            Toast.makeText(baseContext, "Alarm canceled.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext, R.string.cancel_alarm, Toast.LENGTH_SHORT).show()
         }
     }
 }

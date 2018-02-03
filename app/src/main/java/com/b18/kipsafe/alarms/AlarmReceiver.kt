@@ -10,7 +10,7 @@ import com.b18.kipsafe.sunsetcommunication.GetSunsetTask
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        Toast.makeText(context, "Tok tok!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.kukeleku, Toast.LENGTH_SHORT).show()
 
         // Define the intent to open when clicking the notifcation.
         val contentIntent = Intent(context, MainActivity::class.java)

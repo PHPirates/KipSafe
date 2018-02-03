@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notif">Vergeet de kippen niet!</string>
+    <string name="slidertext_zero">Zet wekker precies op zonsondergang.</string>
+    <string name="slidertext_one">Zet wekker %1$d minuten voor zonsondergang.</string>
+    <string name="cancel_alarm">Wekker is uitgezet.</string>
+    <string name="alarm_set">Wekker gaat af om %1$s.</string>
+    <string name="no_sun">Kan de zon niet vinden!</string>
+    <string name="kukeleku">"Kukeleku!"</string>
+</resources>

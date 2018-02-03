@@ -6,6 +6,7 @@ import android.os.Looper
 import android.os.Handler
 import android.widget.Toast
 import com.b18.kipsafe.alarms.KipAlarmManager
+import com.b18.kipsafe.converters.hourMinuteDateFormat
 import com.b18.kipsafe.sunsetcommunication.GetSunsetTask
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,7 +32,7 @@ class AlarmSetter(private val context: Context?) {
         handler.postDelayed({
             if(getSunSetTask.status == AsyncTask.Status.RUNNING) {
                 getSunSetTask.cancel(true)
-                Toast.makeText(context, "Kan de zon niet vinden!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.no_sun, Toast.LENGTH_SHORT).show()
 
                 val calendar: Calendar = try {
                     SharedPreferenceManager(context).getAlarmTime()
@@ -43,9 +44,9 @@ class AlarmSetter(private val context: Context?) {
 
                 val alarmManager = KipAlarmManager(context)
                 alarmManager.setAlarm(calendar)
-                val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
                 Toast.makeText(context,
-                        "Alarm set for " + simpleDateFormat.format(calendar.time),
+                        String.format(context!!.resources.getString(R.string.alarm_set),
+                                hourMinuteDateFormat.format(calendar.time)),
                         Toast.LENGTH_SHORT).show()
             }
         }, 2000)

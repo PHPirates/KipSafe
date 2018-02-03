@@ -3,6 +3,7 @@ package com.b18.kipsafe.sunsetcommunication
 import android.content.Context
 import android.os.AsyncTask
 import android.widget.Toast
+import com.b18.kipsafe.R
 import com.b18.kipsafe.SharedPreferenceManager
 import com.b18.kipsafe.alarms.KipAlarmManager
 import com.b18.kipsafe.converters.convertIsoToCalendar
@@ -66,7 +67,8 @@ class GetSunsetTask(private val context: Context?, private val minutesBeforeSuns
 
             timeCalendar.add(Calendar.MINUTE, -minutesBeforeSunset)
             Toast.makeText(context,
-                    "Alarm set for ${hourMinuteDateFormat.format(timeCalendar.time)}",
+                    String.format(context!!.resources.getString(R.string.alarm_set),
+                            hourMinuteDateFormat.format(timeCalendar.time)),
                     Toast.LENGTH_SHORT)
                     .show()
 
