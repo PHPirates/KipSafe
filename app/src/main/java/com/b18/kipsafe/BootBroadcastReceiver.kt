@@ -3,8 +3,8 @@ package com.b18.kipsafe
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.b18.kipsafe.SunsetCommunication.GetSunSetTask
 import com.b18.kipsafe.alarms.KipAlarmManager
+import com.b18.kipsafe.sunsetcommunication.GetSunsetTask
 import java.util.*
 
 /**
@@ -30,7 +30,7 @@ class BootBroadcastReceiver : BroadcastReceiver(){
                 alarmManager.setAlarm(time)
             } catch (e: DataNotFoundException){
                 AlarmSetter(pContext).set(preferenceManager.getMinutes(),
-                        GetSunSetTask.Delay.NO_DELAY)
+                        GetSunsetTask.Delay.NO_DELAY)
             }
         }
     }

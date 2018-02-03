@@ -37,11 +37,8 @@ fun convertIsoToCalendar(isoTime: String): Calendar {
 @Throws(ParseException::class)
 fun convertIsoToDate(isoTime: String): Date {
     try {
-        // Specify the format to parse the string.
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss",
-                Locale.getDefault())
-        simpleDateFormat.timeZone = TimeZone.getTimeZone("UTC")
-        return simpleDateFormat.parse(isoTime)
+        isoDateFormat.timeZone = TimeZone.getTimeZone("UTC")
+        return isoDateFormat.parse(isoTime)
     } catch (e: ParseException) {
         e.printStackTrace()
     }

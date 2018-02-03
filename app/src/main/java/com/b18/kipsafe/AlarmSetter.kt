@@ -5,8 +5,8 @@ import android.os.AsyncTask
 import android.os.Looper
 import android.os.Handler
 import android.widget.Toast
-import com.b18.kipsafe.SunsetCommunication.GetSunSetTask
 import com.b18.kipsafe.alarms.KipAlarmManager
+import com.b18.kipsafe.sunsetcommunication.GetSunsetTask
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,9 +21,9 @@ class AlarmSetter(private val context: Context?) {
      * @param minutesBeforeSunset Number of minutes before sunset that the alarm should go off.
      * @param delay Whether the alarm should be delayed a day or not.
      */
-    fun set(minutesBeforeSunset: Int, delay: GetSunSetTask.Delay) {
+    fun set(minutesBeforeSunset: Int, delay: GetSunsetTask.Delay) {
         // Make a new task which will request the sunset time. When done, it will set an alarm.
-        val getSunSetTask = GetSunSetTask(context, minutesBeforeSunset, delay)
+        val getSunSetTask = GetSunsetTask(context, minutesBeforeSunset, delay)
         getSunSetTask.execute()
 
         // Make sure to set from UI thread.

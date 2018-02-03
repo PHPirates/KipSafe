@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
-import com.b18.kipsafe.SunsetCommunication.GetSunSetTask
 import com.b18.kipsafe.alarms.KipAlarmManager
+import com.b18.kipsafe.sunsetcommunication.GetSunsetTask
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             val sharedPreferenceManager = SharedPreferenceManager(this)
             val handler = AlarmSetter(this)
             handler.set(sharedPreferenceManager.getMinutes(),
-                    GetSunSetTask.Delay.NO_DELAY)
+                    GetSunsetTask.Delay.NO_DELAY)
         } else {
             alarmManager.cancelAlarm()
             Toast.makeText(baseContext, "Alarm canceled.", Toast.LENGTH_SHORT).show()

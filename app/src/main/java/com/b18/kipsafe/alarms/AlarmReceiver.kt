@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.b18.kipsafe.*
-import com.b18.kipsafe.SunsetCommunication.GetSunSetTask
+import com.b18.kipsafe.sunsetcommunication.GetSunsetTask
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -24,6 +24,6 @@ class AlarmReceiver : BroadcastReceiver() {
         val sharedPreferenceManager = SharedPreferenceManager(context)
         val handler = AlarmSetter(context)
         handler.set(sharedPreferenceManager.getMinutes(),
-                GetSunSetTask.Delay.ONE_DAY)
+                GetSunsetTask.Delay.ONE_DAY)
     }
 }
