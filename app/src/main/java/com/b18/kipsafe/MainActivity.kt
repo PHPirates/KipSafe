@@ -1,9 +1,7 @@
 package com.b18.kipsafe
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
@@ -26,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         // Update the egg picture.
         val kipButton = kipButton as ImageButton
-        kipButton.isSelected = alarmManager.isAlarmSet
+        kipButton.isSelected = alarmManager.isAlarmSet()
     }
 
     /**
@@ -35,7 +33,7 @@ class MainActivity : AppCompatActivity() {
      * @param view Kip button.
      */
     fun hitKip(view: View) {
-        var isAlarmSet = alarmManager.isAlarmSet
+        var isAlarmSet = alarmManager.isAlarmSet()
         isAlarmSet = !isAlarmSet
 
         alarmManager.setIsAlarmSet(isAlarmSet)  // User feedback.

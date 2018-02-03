@@ -9,14 +9,14 @@ import java.util.*
 /**
  * Schedules alarms.
  */
-class AlarmScheduler(private val context: Context) {
+class AlarmScheduler(private val context: Context?) {
     /**
      * Schedule a daily alarm.
      *
      * @param timeCal Time to schedule the alarm for, as Calendar object.
      */
     fun scheduleAlarm(timeCal: Calendar) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeCal.timeInMillis, getPendingIntent())
     }
 
@@ -24,7 +24,7 @@ class AlarmScheduler(private val context: Context) {
      * Cancel an alarm that has been set.
      */
     fun cancelAlarm() {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.cancel(getPendingIntent())
     }
 

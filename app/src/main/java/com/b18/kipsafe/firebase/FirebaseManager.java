@@ -3,8 +3,8 @@ package com.b18.kipsafe.firebase;
 import android.app.Activity;
 import android.widget.ImageButton;
 
-import com.b18.kipsafe.alarms.KipAlarmManager;
 import com.b18.kipsafe.R;
+import com.b18.kipsafe.alarms.KipAlarmManager;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.google.firebase.messaging.FirebaseMessaging;
