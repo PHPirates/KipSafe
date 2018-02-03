@@ -2,11 +2,6 @@
     <string name="app_name">KipSafe</string>
     <string name="kipbutton">Kip button</string>
     <string name="notif">Vergeet de kippen niet!</string>
-    <string name="pref_time">preferencetime</string>
-    <string name="pref_sunset">preferencesunset</string>
-    <string name="pref_isalarmset">preferenceisalarmset</string>
     <string name="slidertext_zero">Zet wekker precies op zonsondergang.</string>
     <string name="slidertext_one">Zet wekker %1$d minuten voor zonsondergang.</string>
-    <string name="version_url">https://github.com/PHPirates/KipSafe/raw/master/version.json</string>
-    <string name="release_url">https://github.com/PHPirates/KipSafe/blob/master/app/release/app-release.apk?raw=true</string>
 </resources>

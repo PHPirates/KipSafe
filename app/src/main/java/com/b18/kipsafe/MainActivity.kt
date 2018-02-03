@@ -17,8 +17,6 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        UpdateChecker(this).check()
-
         alarmManager = KipAlarmManager(this)
         KipTimeSlider(this).setup()
 
