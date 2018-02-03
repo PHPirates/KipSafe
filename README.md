@@ -14,3 +14,7 @@ Features:
 * Alarm makes rooster sound
 
 Uses a [sunset api](http://sunrise-sunset.org/api) and therefore needs internet connection.
+
+## Screenshots
+![Screenshot closed egg.](Screenshot_closed_egg.png)
+![Screenshot open egg.](Screenshot_open_egg.png)

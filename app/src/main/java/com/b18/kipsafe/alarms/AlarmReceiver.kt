@@ -21,9 +21,9 @@ class AlarmReceiver : BroadcastReceiver() {
         sendNotification(context, contentPendingIntent)
 
         // Schedule alarm for the next day.
-        val sharedPreferenceManager = SharedPreferenceManager(context)
+        val sharedPreferenceManager = SharedPreferenceManagerKot(context)
         val handler = AlarmSetter(context)
-        handler.set(sharedPreferenceManager.prefTime,
+        handler.set(sharedPreferenceManager.getTime(),
                 GetSunSetTask.Delay.ONE_DAY)
     }
 }

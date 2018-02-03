@@ -11,7 +11,7 @@ import static com.b18.kipsafe.converters.IsoConverterKt.convertIsoToCalendar;
 /**
  * Manage SharedPreferences.
  */
-
+@Deprecated
 public class SharedPreferenceManager {
 
     private SharedPreferences prefs;

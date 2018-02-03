@@ -13,22 +13,22 @@ class KipTimeSlider(private val activity: Activity) {
      * Setup the TimeSlider.
      */
     fun setup() {
-        val sharedPreferenceManager = SharedPreferenceManager(activity)
+        val sharedPreferenceManager = SharedPreferenceManagerKot(activity)
 
         // Default is zero if no time is set.
-        val prefTime = sharedPreferenceManager.prefTime
+        val prefTime = sharedPreferenceManager.getTime()
         if (prefTime == -1) {
-            sharedPreferenceManager.writePrefTime(0)
+            sharedPreferenceManager.savePref(0)
             writeSliderText(0)
         } else {
-            sharedPreferenceManager.writePrefTime(prefTime)
+            sharedPreferenceManager.savePref(prefTime)
             writeSliderText(prefTime)
         }
 
         activity.timeslider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 writeSliderText(i)
-                sharedPreferenceManager.writePrefTime(i)
+                sharedPreferenceManager.savePref(i)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {

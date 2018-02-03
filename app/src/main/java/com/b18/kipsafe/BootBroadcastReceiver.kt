@@ -13,14 +13,14 @@ import java.util.*
 class BootBroadcastReceiver : BroadcastReceiver(){
     override fun onReceive(pContext: Context?, intent: Intent?) {
         val alarmManager = KipAlarmManager(pContext)
-        val preferenceManager = SharedPreferenceManager(pContext)
+        val preferenceManager = SharedPreferenceManagerKot(pContext)
 
-        if (preferenceManager.isAlarmSet) {
+        if (preferenceManager.getIsAlarmSet()) {
             // If the alarm was scheduled, reschedule it with the last time known.
             // If no time is known, request new sunset time.
             val time: Calendar
             try {
-                time = preferenceManager.alarmTime
+                time = preferenceManager.getSunset()
 
                 val now = Calendar.getInstance()
                 if(now > time) {
@@ -29,7 +29,7 @@ class BootBroadcastReceiver : BroadcastReceiver(){
                 }
                 alarmManager.setAlarm(time)
             } catch (e: DataNotFoundException){
-                AlarmSetter(pContext).set(preferenceManager.prefTime,
+                AlarmSetter(pContext).set(preferenceManager.getTime(),
                         GetSunSetTask.Delay.NO_DELAY)
             }
         }

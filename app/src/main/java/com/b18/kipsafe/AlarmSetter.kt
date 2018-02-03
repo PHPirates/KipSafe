@@ -33,12 +33,12 @@ class AlarmSetter(private val context: Context?) {
                 getSunSetTask.cancel(true)
                 Toast.makeText(context, "Kan de zon niet vinden!", Toast.LENGTH_SHORT).show()
 
-                var calendar: Calendar
-                try {
-                    calendar = SharedPreferenceManager(context).alarmTime
+                val calendar: Calendar = try {
+                    SharedPreferenceManagerKot(context).getSunset()
                 } catch (e: DataNotFoundException) {
-                    calendar = Calendar.getInstance()
-                    calendar.set(Calendar.HOUR_OF_DAY, 18)
+                    val cal = Calendar.getInstance()
+                    cal.set(Calendar.HOUR_OF_DAY, 18)
+                    cal
                 }
 
                 val alarmManager = KipAlarmManager(context)

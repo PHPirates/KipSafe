@@ -6,7 +6,7 @@ import android.app.PendingIntent
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
-import com.b18.kipsafe.static.kukeleku
+import com.b18.kipsafe.util.kukeleku
 
 /**
  * Sends a notification.
