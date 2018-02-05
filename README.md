@@ -1,10 +1,6 @@
 # KipSafe
 
-# [Download](https://github.com/PHPirates/KipSafe/blob/master/KipSafe/app/app-release.apk?raw=true)
-
-[Download latest debug](https://github.com/PHPirates/KipSafe/raw/master/KipSafe/app/build/outputs/apk/KipSafe-debug.apk) (see tags to find if this is ahead of the latest release)
-
-It may be necessary to check 'install from unknown sources' to install the app.
+Alpha version available in Google Play Store, link on request.
 
 Features:
 
@@ -16,5 +12,5 @@ Features:
 Uses a [sunset api](http://sunrise-sunset.org/api) and therefore needs internet connection.
 
 ## Screenshots
-![Screenshot closed egg.](Screenshot_closed_egg.png)
-![Screenshot open egg.](Screenshot_open_egg.png)
+![Screenshot closed egg.](images/Screenshot_closed_egg.png)
+![Screenshot open egg.](images/Screenshot_open_egg.png)
