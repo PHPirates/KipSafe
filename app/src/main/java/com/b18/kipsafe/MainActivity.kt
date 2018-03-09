@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         if(isAlarmSet) {
             val sharedPreferenceManager = SharedPreferenceManager(this)
             val handler = AlarmSetter(this)
-            handler.set(sharedPreferenceManager.getMinutes(),
+            handler.set(sharedPreferenceManager.minutesBeforeSunset,
                     GetSunsetTask.Delay.NO_DELAY)
         } else {
             alarmManager.cancelAlarm()

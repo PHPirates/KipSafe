@@ -39,7 +39,7 @@ class KipAlarmManager(private val context: Context?) {
      * @return whether alarm is set or not.
      */
     fun isAlarmSet(): Boolean {
-        return SharedPreferenceManager(context).getIsAlarmSet()
+        return SharedPreferenceManager(context).isAlarmSet
     }
 
     /**
@@ -58,6 +58,6 @@ class KipAlarmManager(private val context: Context?) {
             // Skipping update (will happen when Main is launched next time).
         }
 
-        SharedPreferenceManager(context).savePref(isAlarmSet)
+        SharedPreferenceManager(context).isAlarmSet = isAlarmSet
     }
 }

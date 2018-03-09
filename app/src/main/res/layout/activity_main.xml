@@ -39,4 +39,10 @@
         android:progress="0"
         />
 
+    <CheckBox
+        android:id="@+id/weekend_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/weekend" />
+
 </RelativeLayout>

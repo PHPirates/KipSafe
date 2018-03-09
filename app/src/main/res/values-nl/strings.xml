@@ -7,4 +7,5 @@
     <string name="alarm_set">Wekker gaat af om %1$s.</string>
     <string name="no_sun">Kan de zon niet vinden!</string>
     <string name="kukeleku">"Kukeleku!"</string>
+    <string name="weekend">Alleen in het weekend.</string>
 </resources>
