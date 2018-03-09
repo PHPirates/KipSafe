@@ -1,8 +1,6 @@
 package com.b18.kipsafe
 
 import android.app.Activity
-import android.widget.CheckBox
-import android.widget.CompoundButton
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -14,11 +12,12 @@ class WeekendCheckBox(activity: Activity) {
 
         val sharedPreferenceManager = SharedPreferenceManager(activity)
 
-//        val savedValue = sharedPreferenceManager.
+        // Update on initialisation with old value.
+        activity.weekend_checkbox.isChecked = sharedPreferenceManager.isWeekendOnly
 
         activity.weekend_checkbox.setOnCheckedChangeListener {
-            checkbox: CompoundButton?, isChecked: Boolean ->
-
+            _, isChecked: Boolean ->
+            sharedPreferenceManager.isWeekendOnly = isChecked
         }
     }
 

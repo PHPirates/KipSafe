@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         // Update the egg picture.
         val kipButton = kipButton as ImageButton
         kipButton.isSelected = alarmManager.isAlarmSet()
+
+        // Make a checkbox to set alarm on weekend only.
+        WeekendCheckBox(this)
     }
 
     /**

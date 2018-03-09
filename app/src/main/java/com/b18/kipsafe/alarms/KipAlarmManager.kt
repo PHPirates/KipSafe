@@ -18,6 +18,19 @@ class KipAlarmManager(private val context: Context?) {
      */
     fun setAlarm(calendar: Calendar) {
         setIsAlarmSet(true)
+
+        // Override time if alarm should be set on weekend only.
+        val sharedprefs = SharedPreferenceManager(context)
+        if (sharedprefs.isWeekendOnly) {
+            // If the alarm would be set on any other day than weekend, set it on first day of weekend.
+            when (calendar.get(Calendar.DAY_OF_WEEK)) {
+                Calendar.MONDAY,
+                Calendar.TUESDAY,
+                Calendar.WEDNESDAY,
+                Calendar.THURSDAY,
+                Calendar.FRIDAY -> calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
+            }
+        }
         scheduler.scheduleAlarm(calendar)
 
         // Debug
