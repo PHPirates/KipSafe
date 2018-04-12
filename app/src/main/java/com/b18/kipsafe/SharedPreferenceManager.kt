@@ -12,55 +12,45 @@ class SharedPreferenceManager(val context: Context?) {
     private val prefs = android.preference
             .PreferenceManager.getDefaultSharedPreferences(context)
 
-    /**
-     * Saves the given preference.
-     * If the preference is a
-     *      Int: save number of minutes before sunset when the alarm should go off.
-     *      String: save the last known sunset, which we can use when there is no internet.
-     *      Boolean: save whether the alarm is set or not.
-     *
-     * @param preference in practice one of the following three:
-     *      Int (minutes)
-     *      String (ISO time)
-     *      Boolean (isAlarmSet)
-     */
-    fun savePref(preference: Any) {
-        val edit = prefs.edit()
-        val success = when(preference) {
-            is Int -> {
-                edit.putInt(prefTime, preference)
-                true
-            }
-            is String -> {
-                edit.putString(prefSunset, preference)
-                true
-            }
-            is Boolean -> {
-                edit.putBoolean(prefIsAlarmSet, preference)
-                true
-            }
-            else -> false
+    // Actually property getters and setters should not be used when accessing slow things like shared preferences, but not a big performance issue here.
+
+    /** The number of minutes before sunset to set the alarm. */
+    var minutesBeforeSunset: Int
+        get() = prefs.getInt(UserPreference.TIME.keyString, -1)
+        set(value) {
+            prefs.edit().putInt(UserPreference.TIME.keyString, value).apply()
         }
-        if(success) edit.apply()
-    }
+
+    /** True if the alarm is set, false otherwise. */
+    var isAlarmSet: Boolean
+        get() = prefs.getBoolean(UserPreference.IS_ALARM_SET.keyString, false)
+        set(value) {
+            prefs.edit().putBoolean(UserPreference.IS_ALARM_SET.keyString, value).apply()
+        }
+
+    /** Last known sunset. */
+    var sunset: String
+        get() = prefs.getString(UserPreference.SUNSET.keyString, "")
+        set(value) {
+            prefs.edit().putString(UserPreference.SUNSET.keyString, value).apply()
+        }
+
+    /** Whether the alarm should go of during weekends only. */
+    var isWeekendOnly: Boolean
+        get() = prefs.getBoolean(UserPreference.WEEKEND_ONLY.keyString, false)
+        set(value) {
+            prefs.edit().putBoolean(UserPreference.WEEKEND_ONLY.keyString, value).apply()
+        }
 
     /**
-     * Get the number of minutes before sunset.
-     */
-    fun getMinutes(): Int {
-        return prefs.getInt(prefTime, -1)
-    }
-
-    /**
-     * Get the last known sunset. This is a default time if we cannot parse api results.
+     * Get the last known sunset. This will be 18:00 hrs if we cannot parse api results.
      *
      * @throws DataNotFoundException when the last known sunset could not be found.
      */
     fun getSunset(): Calendar {
-        val defaultTime = "2017-10-11T17:00:00+00:00"
-        val time = prefs.getString(prefSunset, defaultTime)
-
-        if(time == defaultTime) throw DataNotFoundException(
+        // Copy value so we only access shared prefs once.
+        val time = sunset
+        if(time == "") throw DataNotFoundException(
                 "Could not find requested time in SharedPreferences.")
 
         return try {
@@ -74,20 +64,14 @@ class SharedPreferenceManager(val context: Context?) {
     }
 
     /**
-     * Get whether the alarm is set or not. Returns truw if alarm is set.
-     */
-    fun getIsAlarmSet(): Boolean {
-        return prefs.getBoolean(prefIsAlarmSet, false)
-    }
-
-    /**
      * Combines sunset and preferred minutes before sunset to return an alarm time.
      *
      * @return Calendar object with preferred allar
      */
     fun getAlarmTime(): Calendar {
         val time = getSunset()
-        time.add(Calendar.MINUTE, -getMinutes())
+        time.add(Calendar.MINUTE, -minutesBeforeSunset)
         return time
     }
+
 }

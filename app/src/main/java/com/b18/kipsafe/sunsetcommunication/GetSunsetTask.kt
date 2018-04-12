@@ -56,7 +56,7 @@ class GetSunsetTask(private val context: Context?, private val minutesBeforeSuns
             val time = results.getString("sunset")
 
             // Save the time of the sunset for possible future use in case of no internet.
-            SharedPreferenceManager(context).savePref(time)
+            SharedPreferenceManager(context).sunset = time
 
             val timeCalendar = try {
                 convertIsoToCalendar(time)

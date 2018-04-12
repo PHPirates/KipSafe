@@ -23,7 +23,7 @@ class AlarmReceiver : BroadcastReceiver() {
         // Schedule alarm for the next day.
         val sharedPreferenceManager = SharedPreferenceManager(context)
         val handler = AlarmSetter(context)
-        handler.set(sharedPreferenceManager.getMinutes(),
+        handler.set(sharedPreferenceManager.minutesBeforeSunset,
                 GetSunsetTask.Delay.ONE_DAY)
     }
 }

@@ -15,7 +15,7 @@ class BootBroadcastReceiver : BroadcastReceiver(){
         val alarmManager = KipAlarmManager(pContext)
         val preferenceManager = SharedPreferenceManager(pContext)
 
-        if (preferenceManager.getIsAlarmSet()) {
+        if (preferenceManager.isAlarmSet) {
             // If the alarm was scheduled, reschedule it with the last time known.
             // If no time is known, request new sunset time.
             val time: Calendar
@@ -29,7 +29,7 @@ class BootBroadcastReceiver : BroadcastReceiver(){
                 }
                 alarmManager.setAlarm(time)
             } catch (e: DataNotFoundException){
-                AlarmSetter(pContext).set(preferenceManager.getMinutes(),
+                AlarmSetter(pContext).set(preferenceManager.minutesBeforeSunset,
                         GetSunsetTask.Delay.NO_DELAY)
             }
         }

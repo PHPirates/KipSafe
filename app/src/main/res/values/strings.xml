@@ -8,4 +8,5 @@
     <string name="alarm_set">Alarm set on %1$s.</string>
     <string name="no_sun">Can\'t find the sun!</string>
     <string name="kukeleku">Cock-A-Doodle-Doo!</string>
+    <string name="weekend">Set on weekend only.</string>
 </resources>

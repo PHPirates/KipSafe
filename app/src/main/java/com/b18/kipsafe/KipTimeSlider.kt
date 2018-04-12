@@ -16,19 +16,19 @@ class KipTimeSlider(private val activity: Activity) {
         val sharedPreferenceManager = SharedPreferenceManager(activity)
 
         // Default is zero if no time is set.
-        val prefTime = sharedPreferenceManager.getMinutes()
+        val prefTime = sharedPreferenceManager.minutesBeforeSunset
         if (prefTime == -1) {
-            sharedPreferenceManager.savePref(0)
+            sharedPreferenceManager.minutesBeforeSunset = 0
             writeSliderText(0)
         } else {
-            sharedPreferenceManager.savePref(prefTime)
+            sharedPreferenceManager.minutesBeforeSunset = prefTime
             writeSliderText(prefTime)
         }
 
         activity.timeslider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                writeSliderText(i)
-                sharedPreferenceManager.savePref(i)
+            override fun onProgressChanged(seekBar: SeekBar, minutes: Int, b: Boolean) {
+                writeSliderText(minutes)
+                sharedPreferenceManager.minutesBeforeSunset = minutes
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {

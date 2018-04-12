@@ -3,7 +3,8 @@ package com.b18.kipsafe.util
 // Vibration sequence.
 val kukeleku = longArrayOf(0, 200, 100, 50, 50, 50, 50, 1000, 1000)
 
-// Preference keystrings.
+// Preference keystrings. todo remove
+@Deprecated("use spf")
 const val prefTime = "preferencetime"
 const val prefSunset = "preferencesunset"
 const val prefIsAlarmSet = "preferenceisalarmset"
