@@ -5,7 +5,7 @@
     <string name="slidertext_zero">Set alarm on sunset.</string>
     <string name="slidertext_one">Set alarm %1$d minutes before sunset.</string>
     <string name="cancel_alarm">Alarm cancelled.</string>
-    <string name="alarm_set">Alarm set on %1$s.</string>
+    <string name="alarm_set">Alarm set at %1$s.</string>
     <string name="no_sun">Can\'t find the sun!</string>
     <string name="kukeleku">Cock-A-Doodle-Doo!</string>
     <string name="weekend">Set on weekend only.</string>

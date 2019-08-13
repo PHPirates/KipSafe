@@ -1,10 +1,10 @@
 package com.b18.kipsafe
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.b18.kipsafe.alarms.KipAlarmManager
 import com.b18.kipsafe.sunsetcommunication.GetSunsetTask
 import kotlinx.android.synthetic.main.activity_main.*
