@@ -2,12 +2,12 @@ package com.b18.kipsafe
 
 import android.app.Activity
 import android.widget.SeekBar
-import kotlinx.android.synthetic.main.activity_main.*
+import com.b18.kipsafe.databinding.ActivityMainBinding
 
 /**
  * TimeSlider to adjust the alarm time before sunset.
  */
-class KipTimeSlider(private val activity: Activity) {
+class KipTimeSlider(private val activity: MainActivity) {
 
     /**
      * Setup the TimeSlider.
@@ -25,7 +25,7 @@ class KipTimeSlider(private val activity: Activity) {
             writeSliderText(prefTime)
         }
 
-        activity.timeslider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        activity.binding.timeslider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, minutes: Int, b: Boolean) {
                 writeSliderText(minutes)
                 sharedPreferenceManager.minutesBeforeSunset = minutes
@@ -48,10 +48,10 @@ class KipTimeSlider(private val activity: Activity) {
      */
     fun writeSliderText(t: Int) {
         if (t == 0) {
-            activity.timeslidertext.text =
+            activity.binding.timeslidertext.text =
                     activity.resources.getString(R.string.slidertext_zero)
         } else {
-            activity.timeslidertext.text = String.format(
+            activity.binding.timeslidertext.text = String.format(
                     activity.resources.getString(R.string.slidertext_one), t)
         }
     }

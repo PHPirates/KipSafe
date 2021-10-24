@@ -1,6 +1,7 @@
 package com.b18.kipsafe
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.b18.kipsafe.converters.convertIsoToCalendar
 import com.b18.kipsafe.util.prefIsAlarmSet
 import com.b18.kipsafe.util.prefSunset
@@ -8,38 +9,37 @@ import com.b18.kipsafe.util.prefTime
 import java.text.ParseException
 import java.util.*
 
-class SharedPreferenceManager(val context: Context?) {
-    private val prefs = android.preference
-            .PreferenceManager.getDefaultSharedPreferences(context)
+class SharedPreferenceManager(val context: Context) {
+    private val preferences: SharedPreferences = context.getSharedPreferences("kip", Context.MODE_PRIVATE)
 
     // Actually property getters and setters should not be used when accessing slow things like shared preferences, but not a big performance issue here.
 
     /** The number of minutes before sunset to set the alarm. */
     var minutesBeforeSunset: Int
-        get() = prefs.getInt(UserPreference.TIME.keyString, -1)
+        get() = preferences.getInt(UserPreference.TIME.keyString, -1)
         set(value) {
-            prefs.edit().putInt(UserPreference.TIME.keyString, value).apply()
+            preferences.edit().putInt(UserPreference.TIME.keyString, value).apply()
         }
 
     /** True if the alarm is set, false otherwise. */
     var isAlarmSet: Boolean
-        get() = prefs.getBoolean(UserPreference.IS_ALARM_SET.keyString, false)
+        get() = preferences.getBoolean(UserPreference.IS_ALARM_SET.keyString, false)
         set(value) {
-            prefs.edit().putBoolean(UserPreference.IS_ALARM_SET.keyString, value).apply()
+            preferences.edit().putBoolean(UserPreference.IS_ALARM_SET.keyString, value).apply()
         }
 
     /** Last known sunset. */
     var sunset: String
-        get() = prefs.getString(UserPreference.SUNSET.keyString, "")
+        get() = preferences.getString(UserPreference.SUNSET.keyString, "")!!
         set(value) {
-            prefs.edit().putString(UserPreference.SUNSET.keyString, value).apply()
+            preferences.edit().putString(UserPreference.SUNSET.keyString, value).apply()
         }
 
     /** Whether the alarm should go of during weekends only. */
     var isWeekendOnly: Boolean
-        get() = prefs.getBoolean(UserPreference.WEEKEND_ONLY.keyString, false)
+        get() = preferences.getBoolean(UserPreference.WEEKEND_ONLY.keyString, false)
         set(value) {
-            prefs.edit().putBoolean(UserPreference.WEEKEND_ONLY.keyString, value).apply()
+            preferences.edit().putBoolean(UserPreference.WEEKEND_ONLY.keyString, value).apply()
         }
 
     /**

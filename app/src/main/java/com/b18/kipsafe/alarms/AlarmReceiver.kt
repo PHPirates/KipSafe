@@ -9,7 +9,7 @@ import com.b18.kipsafe.*
 import com.b18.kipsafe.sunsetcommunication.GetSunsetTask
 
 class AlarmReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context, intent: Intent) {
         Toast.makeText(context, R.string.kukeleku, Toast.LENGTH_SHORT).show()
 
         // Define the intent to open when clicking the notifcation.

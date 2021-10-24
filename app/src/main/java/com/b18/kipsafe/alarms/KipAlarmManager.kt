@@ -3,14 +3,14 @@ package com.b18.kipsafe.alarms
 import android.app.Activity
 import android.content.Context
 import android.widget.ImageButton
+import com.b18.kipsafe.MainActivity
 import com.b18.kipsafe.SharedPreferenceManager
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 /**
  * Set alarms, retrieve alarm status (set/not set).
  */
-class KipAlarmManager(private val context: Context?) {
+class KipAlarmManager(private val context: Context) {
     private var scheduler = AlarmScheduler(context)
 
     /**
@@ -62,8 +62,8 @@ class KipAlarmManager(private val context: Context?) {
      */
     fun setIsAlarmSet(isAlarmSet: Boolean) {
         try {
-            val activity = context as Activity
-            val kipButton = activity.kipButton as ImageButton
+            val activity = context as MainActivity
+            val kipButton = activity.binding.kipButton
             kipButton.isSelected = isAlarmSet
         } catch (e: ClassCastException) {
             // We cannot cast the context to an activity. So we were called from a context

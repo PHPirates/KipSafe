@@ -2,26 +2,27 @@ package com.b18.kipsafe
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.b18.kipsafe.alarms.KipAlarmManager
+import com.b18.kipsafe.databinding.ActivityMainBinding
 import com.b18.kipsafe.sunsetcommunication.GetSunsetTask
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var alarmManager: KipAlarmManager
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         alarmManager = KipAlarmManager(this)
         KipTimeSlider(this).setup()
 
         // Update the egg picture.
-        val kipButton = kipButton as ImageButton
+        val kipButton = binding.kipButton
         kipButton.isSelected = alarmManager.isAlarmSet()
 
         // Make a checkbox to set alarm on weekend only.

@@ -11,7 +11,7 @@ import java.util.*
  * Reschedule alarm after reboot.
  */
 class BootBroadcastReceiver : BroadcastReceiver(){
-    override fun onReceive(pContext: Context?, intent: Intent?) {
+    override fun onReceive(pContext: Context, intent: Intent) {
         val alarmManager = KipAlarmManager(pContext)
         val preferenceManager = SharedPreferenceManager(pContext)
 

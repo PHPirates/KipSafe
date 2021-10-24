@@ -19,7 +19,7 @@ import java.util.*
 /**
  * Get sunset time and pass back results.
  */
-class GetSunsetTask(private val context: Context?, private val minutesBeforeSunset: Int,
+class GetSunsetTask(private val context: Context, private val minutesBeforeSunset: Int,
                     private val delay: Delay)
     : AsyncTask<Void, Void, String>() {
 
