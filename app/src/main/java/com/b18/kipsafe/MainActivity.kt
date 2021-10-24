@@ -6,11 +6,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.b18.kipsafe.alarms.KipAlarmManager
 import com.b18.kipsafe.databinding.ActivityMainBinding
+import com.b18.kipsafe.firebase.FirebaseManager
 import com.b18.kipsafe.sunsetcommunication.GetSunsetTask
 
 class MainActivity : AppCompatActivity() {
     private lateinit var alarmManager: KipAlarmManager
     lateinit var binding: ActivityMainBinding
+
+    private val database = FirebaseManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         // Make a checkbox to set alarm on weekend only.
         WeekendCheckBox(this)
+
+        database.setupListener()
     }
 
     /**
@@ -38,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         var isAlarmSet = alarmManager.isAlarmSet()
         isAlarmSet = !isAlarmSet
 
-        alarmManager.setIsAlarmSet(isAlarmSet)  // User feedback.
+        alarmManager.setIsAlarmSet(isAlarmSet)
+        database.updateValue(isAlarmSet)
 
         if(isAlarmSet) {
             val sharedPreferenceManager = SharedPreferenceManager(this)

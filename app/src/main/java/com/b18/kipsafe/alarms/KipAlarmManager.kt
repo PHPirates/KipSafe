@@ -1,8 +1,6 @@
 package com.b18.kipsafe.alarms
 
-import android.app.Activity
 import android.content.Context
-import android.widget.ImageButton
 import com.b18.kipsafe.MainActivity
 import com.b18.kipsafe.SharedPreferenceManager
 import java.util.*
